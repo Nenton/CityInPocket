@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/spacing_small_8"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingTop="@dimen/spacing_small_8">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/wrap_announcement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_small_8">
+
+            <TextView
+                android:id="@+id/cur_news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_normal_16"
+                android:layout_marginLeft="@dimen/spacing_normal_16"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_marginStart="@dimen/spacing_normal_16"
+                android:textStyle="bold"
+                tools:text="Заголовок" />
+
+            <TextView
+                android:id="@+id/cur_news_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_normal_16"
+                android:layout_marginLeft="@dimen/spacing_normal_16"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_marginStart="@dimen/spacing_normal_16"
+                android:layout_marginTop="@dimen/spacing_small_8"
+                tools:text="Проверка" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/cur_news_photos"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/spacing_small_8"
+                tools:background="@color/greyWhite" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/spacing_normal_16"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_marginTop="@dimen/spacing_small_8">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_time" />
+
+                <TextView
+                    android:id="@+id/cur_news_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spacing_small_8"
+                    android:layout_marginStart="@dimen/spacing_small_8"
+                    tools:text="18.12.2012" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsView>

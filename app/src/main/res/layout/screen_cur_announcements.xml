@@ -1,9 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.nenton.trehgornyinpocket.ui.screens.curannoncement.CurAnnouncementView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nenton.trehgornyinpocket.ui.screens.curannoncement.CurAnnouncementView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/spacing_small_8"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingTop="@dimen/spacing_normal_16">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/wrap_announcement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_small_8">
+
+
+            <ImageView
+                android:id="@+id/announcement_image_calendar_iv"
+                android:layout_width="@dimen/spacing_large_56"
+                android:layout_height="@dimen/spacing_large_56"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="@dimen/spacing_normal_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/greyWhite" />
+
+            <TextView
+                android:id="@+id/announcement_day_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/font_large_36"
+                app:layout_constraintBottom_toTopOf="@+id/announcement_image_calendar_iv"
+                app:layout_constraintEnd_toStartOf="@+id/announcement_image_calendar_iv"
+                app:layout_constraintStart_toEndOf="@+id/announcement_image_calendar_iv"
+                app:layout_constraintTop_toBottomOf="@+id/announcement_image_calendar_iv"
+                tools:text="18" />
+
+
+            <TextView
+                android:id="@+id/announcement_title_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_normal_16"
+                android:layout_marginLeft="@dimen/spacing_small_8"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_marginStart="@dimen/spacing_small_8"
+                android:layout_marginTop="@dimen/spacing_small_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/announcement_image_calendar_iv"
+                app:layout_constraintTop_toTopOf="@+id/announcement_image_calendar_iv"
+                tools:text="Проверка" />
+
+            <TextView
+                android:id="@+id/announcement_month_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/announcement_image_calendar_iv"
+                app:layout_constraintStart_toStartOf="@+id/announcement_image_calendar_iv"
+                app:layout_constraintTop_toBottomOf="@+id/announcement_image_calendar_iv"
+                tools:text="Май" />
+
+            <TextView
+                android:id="@+id/announcement_full_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_normal_16"
+                android:layout_marginLeft="@dimen/spacing_normal_16"
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:layout_marginStart="@dimen/spacing_normal_16"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/announcement_month_tv"
+                tools:text="Какая-то новость" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/announcement_photos"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/spacing_small_8"
+                app:layout_constraintTop_toBottomOf="@+id/announcement_full_tv"
+                tools:background="@color/greyWhite" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 </com.nenton.trehgornyinpocket.ui.screens.curannoncement.CurAnnouncementView>
