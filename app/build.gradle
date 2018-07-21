@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,6 +59,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     implementation 'com.andkulikov:transitionseverywhere:1.7.8'
+
+    implementation 'com.android.support:multidex:1.0.3'
 
     def room_version = "1.1.1"
     implementation "android.arch.persistence.room:runtime:$room_version"

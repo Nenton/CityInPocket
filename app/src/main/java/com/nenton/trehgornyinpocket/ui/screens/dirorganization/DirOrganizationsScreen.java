@@ -6,9 +6,6 @@ import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
-import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsAdapter;
-import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsModel;
-import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsView;
 import com.squareup.picasso.Picasso;
 
 import dagger.Provides;
@@ -17,7 +14,10 @@ import mortar.MortarScope;
 public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComponent> {
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
-        return null;
+        return DaggerDirOrganizationsScreen_Component.builder()
+                .rootComponent(parentComponent)
+                .module(new Module())
+                .build();
     }
 
     @dagger.Module

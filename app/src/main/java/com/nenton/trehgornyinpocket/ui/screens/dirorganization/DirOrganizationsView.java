@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
-import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsScreen;
 
 public class DirOrganizationsView extends AbstractView<DirOrganizationsScreen.DirOrganizationsPresenter> {
     public DirOrganizationsView(Context context, AttributeSet attrs) {

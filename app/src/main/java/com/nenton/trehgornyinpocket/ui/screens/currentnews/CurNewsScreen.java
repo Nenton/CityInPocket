@@ -14,7 +14,10 @@ import mortar.MortarScope;
 public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
-        return null;
+        return DaggerCurNewsScreen_Component.builder()
+                .rootComponent(parentComponent)
+                .module(new Module())
+                .build();
     }
 
     @dagger.Module

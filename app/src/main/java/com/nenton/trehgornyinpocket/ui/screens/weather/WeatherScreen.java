@@ -14,7 +14,10 @@ import mortar.MortarScope;
 public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
-        return null;
+        return DaggerWeatherScreen_Component.builder()
+                .rootComponent(parentComponent)
+                .module(new Module())
+                .build();
     }
 
     @dagger.Module
@@ -46,7 +49,7 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
         RootPresenter getRootPresenter();
     }
 
-    public class WeatherPresenter extends AbstractPresenter<WeatherView, WeatherModel>{
+    public class WeatherPresenter extends AbstractPresenter<WeatherView, WeatherModel> {
 
         @Override
         protected void initActionBar() {

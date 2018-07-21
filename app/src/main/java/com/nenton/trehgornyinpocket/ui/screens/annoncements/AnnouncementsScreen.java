@@ -14,7 +14,10 @@ import mortar.MortarScope;
 public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootComponent> {
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
-        return null;
+        return DaggerAnnouncementsScreen_Component.builder()
+                .rootComponent(parentComponent)
+                .module(new Module())
+                .build();
     }
 
     @dagger.Module
@@ -46,7 +49,7 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
         RootPresenter getRootPresenter();
     }
 
-    public class AnnouncementsPresenter extends AbstractPresenter<AnnouncementsView, AnnouncementsModel>{
+    public class AnnouncementsPresenter extends AbstractPresenter<AnnouncementsView, AnnouncementsModel> {
 
         @Override
         protected void initActionBar() {
