@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/new_desc_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="@dimen/spacing_normal_16"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="@dimen/spacing_normal_16"
+        android:maxLines="2"
+        app:layout_constraintEnd_toStartOf="@+id/new_image_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/new_image_iv"
+        tools:text="Новость Новость Новость Новость Новость Новость" />
+
+    <ImageView
+        android:id="@+id/new_image_iv"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        tools:background="@color/colorAccent"
+        android:layout_marginEnd="@dimen/spacing_normal_16"
+        android:layout_marginRight="@dimen/spacing_normal_16"
+        android:layout_marginTop="@dimen/spacing_small_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/new_clock_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_normal_16"
+        android:layout_marginStart="@dimen/spacing_normal_16"
+        android:layout_marginTop="@dimen/spacing_small_8"
+        android:src="@drawable/ic_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_desc_tv" />
+
+    <TextView
+        android:id="@+id/new_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_small_8"
+        android:layout_marginLeft="@dimen/spacing_small_8"
+        android:layout_marginRight="@dimen/spacing_small_8"
+        android:layout_marginStart="@dimen/spacing_small_8"
+        app:layout_constraintBottom_toTopOf="@+id/new_clock_iv"
+        app:layout_constraintEnd_toStartOf="@+id/new_image_iv"
+        app:layout_constraintStart_toEndOf="@+id/new_clock_iv"
+        app:layout_constraintTop_toBottomOf="@+id/new_clock_iv"
+        tools:text="18/25/2015" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/greyWhite"
+        android:layout_marginTop="@dimen/spacing_small_8"
+        app:layout_constraintTop_toBottomOf="@+id/new_image_iv" />
+
+</android.support.constraint.ConstraintLayout>

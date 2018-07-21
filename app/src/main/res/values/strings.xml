@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Trehgorny in pocket</string>
+    <string name="roboto_regular">sans-serif</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+
+    <string name="open_drawer">open</string>
+    <string name="close_drawer">close</string>
+</resources>
