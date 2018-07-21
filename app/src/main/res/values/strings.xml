@@ -6,4 +6,8 @@
 
     <string name="open_drawer">open</string>
     <string name="close_drawer">close</string>
+    <string name="action_news">News</string>
+    <string name="action_announcement">Announcement</string>
+    <string name="action_organizations">Organizations</string>
+    <string name="action_weather">Weather</string>
 </resources>

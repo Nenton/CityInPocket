@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -49,7 +50,7 @@ import flow.Flow;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
 
-public class RootActivity extends AppCompatActivity implements IRootView, IActionBarView {
+public class RootActivity extends AppCompatActivity implements IRootView, IActionBarView, NavigationView.OnNavigationItemSelectedListener {
     @Inject
     RootPresenter mRootPresenter;
     @BindView(R.id.root_frame)
@@ -62,7 +63,8 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     DrawerLayout mDrawerLayout;
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout mCoordinatorLayout;
-
+    @BindView(R.id.nav_root_view)
+    NavigationView mNavigationView;
 
     private ActionBarDrawerToggle mToggle;
     private ActionBar mActionBar;
@@ -86,6 +88,7 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open_drawer, R.string.close_drawer);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -123,7 +126,6 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-//        Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -167,11 +169,12 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
                     mToggle.setToolbarNavigationClickListener(v -> onBackPressed());
                 }
             } else {
-                mToggle.setDrawerIndicatorEnabled(false);
+                mToggle.setDrawerIndicatorEnabled(true);
                 mActionBar.setDisplayHomeAsUpEnabled(false);
                 mToggle.setToolbarNavigationClickListener(null);
             }
 
+            mDrawerLayout.setDrawerLockMode(enabled ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED);
             mToggle.syncState();
         }
     }
@@ -242,12 +245,51 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
         return allGranted;
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        Object key = null;
+//        switch (item.getItemId()) {
+//            case R.id.nav_account:
+//                key = new AccountScreen();
+//                break;
+//            case R.id.nav_catalog:
+//                key = new CatalogScreen();
+//                break;
+//            case R.id.nav_favorites:
+//                break;
+//            case R.id.nav_orders:
+//                break;
+//            case R.id.nav_notifications:
+//                break;
+//        }
+//
+//        if (key != null){
+//            Flow.get(this).set(key);
+//        }
+//
+//        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+//    @Override
+//    public void initDrawer(UserInfoDto infoDto) {
+//        View header = mNavigationView.getHeaderView(0);
+//        ImageView avatar = (ImageView) header.findViewById(R.id.drawer_user_avatar);
+//        TextView userName = (TextView) header.findViewById(R.id.drawer_user_name);
+//
+//        mPicasso.load(infoDto.getAvatar())
+//                .fit()
+//                .centerCrop()
+//                .into(avatar);
+//
+//        userName.setText(infoDto.getName());
+//    }
 
     //region ========================= DI =========================
 
