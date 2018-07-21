@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.nenton.trehgornyinpocket.ui.screens.organization.OrganizationView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.nenton.trehgornyinpocket.ui.screens.organization.OrganizationView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/spacing_small_8"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/organizations_rv"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    android:paddingEnd="@dimen/spacing_normal_16"
+    android:paddingLeft="@dimen/spacing_normal_16"
+    android:paddingRight="@dimen/spacing_normal_16"
+    android:paddingStart="@dimen/spacing_normal_16"
+    android:paddingTop="@dimen/spacing_normal_16">
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/organization_logo_iv"
+            android:layout_width="@dimen/spacing_big_48"
+            android:layout_height="@dimen/spacing_big_48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/greyWhite" />
+
+        <TextView
+            android:id="@+id/organization_name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small_8"
+            android:layout_marginStart="@dimen/spacing_small_8"
+            android:textSize="@dimen/font_medium_16"
+            app:layout_constraintBottom_toTopOf="@+id/organization_logo_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/organization_logo_iv"
+            app:layout_constraintTop_toBottomOf="@+id/organization_logo_iv"
+            tools:text="Фирма" />
+
+        <TextView
+            android:id="@+id/organization_description_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/organization_logo_iv"
+            tools:text="Описание фирмы" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/organization_contacts_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small_8"
+            app:layout_constraintTop_toBottomOf="@+id/organization_description_tv" />
+    </android.support.constraint.ConstraintLayout>
 </com.nenton.trehgornyinpocket.ui.screens.organization.OrganizationView>
