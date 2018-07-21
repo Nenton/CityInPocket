@@ -68,9 +68,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             // TODO: 21.07.2018 попробовать butterknife
             super(itemView);
-            description = itemView.findViewById(R.id.new_desc_tv);
-            image = itemView.findViewById(R.id.new_image_iv);
-            date = itemView.findViewById(R.id.new_date);
+            description = itemView.findViewById(R.id.organization_desc_tv);
+            image = itemView.findViewById(R.id.announcement_image_iv);
+            date = itemView.findViewById(R.id.organization_name_tv);
         }
     }
 }
