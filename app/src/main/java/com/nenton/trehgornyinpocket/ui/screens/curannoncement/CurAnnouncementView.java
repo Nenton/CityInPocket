@@ -3,6 +3,7 @@ package com.nenton.trehgornyinpocket.ui.screens.curannoncement;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
 
@@ -19,5 +20,9 @@ public class CurAnnouncementView extends AbstractView<CurAnnouncementScreen.CurA
     @Override
     public boolean viewOnBackPressed() {
         return false;
+    }
+
+    public void initView(AnnouncementDto announcement) {
+
     }
 }
