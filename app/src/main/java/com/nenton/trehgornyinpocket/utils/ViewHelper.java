@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by serge on 25.03.2017.
@@ -21,7 +22,7 @@ public class ViewHelper {
         return displayMetrics.density;
     }
 
-    public static ArrayList<View> getChildExludeView(ViewGroup container, @IdRes int... excludeChild) {
+    public static List<View> getChildExludeView(ViewGroup container, @IdRes int... excludeChild) {
         ArrayList<View> childs = new ArrayList<>();
 
         for (int i = 0; i < container.getChildCount(); i++) {
@@ -35,12 +36,9 @@ public class ViewHelper {
         return childs;
     }
 
-
-
     public static void waitForMeasure(View view, OnMeasureCallback callback) {
         int width = view.getWidth();
         int height = view.getHeight();
-
         if (width > 0 && height > 0) {
             callback.onMeasure(view, width, height);
             return;

@@ -63,7 +63,8 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
 
         @Override
         protected void initDagger(MortarScope scope) {
-            ((Component) scope.getService(DaggerService.SERVICE_NAME)).inject(this);
+            Component component = scope.getService(DaggerService.SERVICE_NAME);
+            component.inject(this);
         }
     }
 }

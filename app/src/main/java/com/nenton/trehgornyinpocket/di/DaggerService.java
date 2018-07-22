@@ -13,29 +13,34 @@ public class DaggerService {
     private static final String TAG = "DaggerService";
     public static final String SERVICE_NAME = "MY_DAGGER_SERVICE";
 
+    private DaggerService() {
+        throw new IllegalStateException("Utility class");
+    }
+
     @SuppressWarnings("unchecked")
-    public static <T> T getDaggerComponent(Context context){
+    public static <T> T getDaggerComponent(Context context) {
         //noinspection ResourceType
         return (T) context.getSystemService(SERVICE_NAME);
     }
+
     private static Map<Class, Object> sComponentMap = new HashMap<>();
 
-    public static void registerComponent(Class componentClass, Object daggerComponent){
+    public static void registerComponent(Class componentClass, Object daggerComponent) {
         sComponentMap.put(componentClass, daggerComponent);
     }
 
     @Nullable
     @SuppressWarnings("unchecked")
-    public static <T> T getComponent(Class<T> componentClass){
+    public static <T> T getComponent(Class<T> componentClass) {
         Object component = sComponentMap.get(componentClass);
         return (T) component;
     }
 
-    public static void unregisterScope(Class<? extends Annotation> scopeAnnotation){
+    public static void unregisterScope(Class<? extends Annotation> scopeAnnotation) {
         Iterator<Map.Entry<Class, Object>> iterator = sComponentMap.entrySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry<Class, Object> entry = iterator.next();
-            if (entry.getKey().isAnnotationPresent(scopeAnnotation)){
+            if (entry.getKey().isAnnotationPresent(scopeAnnotation)) {
                 Log.e(TAG, "unregisterScope: " + entry.getKey().getName());
                 iterator.remove();
             }

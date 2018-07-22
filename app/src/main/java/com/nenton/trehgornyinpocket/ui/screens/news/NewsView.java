@@ -12,7 +12,7 @@ import butterknife.BindView;
 
 public class NewsView extends AbstractView<NewsScreen.NewsPresenter> {
     @BindView(R.id.news_rv)
-    RecyclerView newsView;
+    RecyclerView newsRecyclerView;
 
     private NewsAdapter adapter;
 
@@ -35,7 +35,7 @@ public class NewsView extends AbstractView<NewsScreen.NewsPresenter> {
         if (adapter == null){
             adapter = new NewsAdapter();
         }
-        newsView.setAdapter(adapter);
+        newsRecyclerView.setAdapter(adapter);
     }
 
     public NewsAdapter getAdapter() {
