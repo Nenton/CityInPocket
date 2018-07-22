@@ -18,12 +18,12 @@ import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsScreen;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import dagger.Provides;
 import flow.Flow;
 import mortar.MortarScope;
+import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 
 @Screen(R.layout.screen_news)
 public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -88,14 +88,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            loadData();
-        }
-
-        private void loadData() {
-            if (getView() != null) {
-                List<NewsDto> newsMock = mModel.getNewsMock();
-                getView().getAdapter().swapAdapter(newsMock);
-            }
+            updateData(mModel.getNewsAllObs());
         }
 
         public void clickOnNew(NewsDto currentNew) {
@@ -128,16 +121,27 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            // TODO: 22.07.2018 Стандартный возврат всех данных
+            updateData(mModel.getNewsAllObs());
             query = "";
             return true;
+        }
+
+        private void updateData(Observable<NewsDto> observable) {
+            if (getView() != null) {
+                getView().getAdapter().reloadAdapter();
+                mCompSubs.clear();
+                mCompSubs.add(subscribeOnNews(observable));
+            }
+        }
+
+        private Subscription subscribeOnNews(Observable<NewsDto> observable) {
+            return observable.subscribe(new DataSubscriber());
         }
 
         private void showNews(final String q, int delay) {
             Runnable runnable = () -> {
                 query = q;
-                getRootView().showMessage("Search...");
-                // TODO: 22.07.2018 Реализовать получение данных с поисковым запросом
+                updateData(mModel.getNewsOnSearch(query));
             };
             handler.removeCallbacks(runnable);
             handler.postDelayed(runnable, delay);

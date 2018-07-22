@@ -1,5 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.currentnews;
 
+import android.os.Bundle;
+
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -78,7 +80,7 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         @Override
         protected void initActionBar() {
             mRootPresenter.newActionBarBuilder()
-                    .setTitle("Current new")
+                    .setTitle("News")
                     .setBackArrow(true)
                     .build();
         }
@@ -87,6 +89,14 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         protected void initDagger(MortarScope scope) {
             Component component = scope.getService(DaggerService.SERVICE_NAME);
             component.inject(this);
+        }
+
+        @Override
+        protected void onLoad(Bundle savedInstanceState) {
+            super.onLoad(savedInstanceState);
+            if (getView() != null) {
+                getView().initView(currentNews);
+            }
         }
     }
 }

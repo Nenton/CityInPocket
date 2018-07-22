@@ -11,8 +11,10 @@ import android.widget.TextView;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
+import com.nenton.trehgornyinpocket.utils.ViewHelper;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,10 +25,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
     Picasso picasso;
     @Inject
     NewsScreen.NewsPresenter presenter;
-    private List<NewsDto> news;
+    private List<NewsDto> news = new ArrayList<>();
 
-    public void swapAdapter(List<NewsDto> news) {
-        this.news = news;
+    public void reloadAdapter() {
+        news.clear();
+        news = new ArrayList<>();
         notifyDataSetChanged();
     }
 
@@ -49,13 +52,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
         holder.description.setText(currentNew.getDescription());
         picasso.load(currentNew.getImagesUrl().get(0))
                 .into(holder.image);
-        holder.date.setText(currentNew.getDate().toString());
+        holder.date.setText(ViewHelper.getDateFromPattern(currentNew.getDate()));
         holder.itemView.setOnClickListener(view -> presenter.clickOnNew(currentNew));
     }
 
     @Override
     public int getItemCount() {
-        return news.size();
+        if (news != null) {
+            return news.size();
+        }
+        return 0;
     }
 
     public void addNew(NewsDto newsDto) {
