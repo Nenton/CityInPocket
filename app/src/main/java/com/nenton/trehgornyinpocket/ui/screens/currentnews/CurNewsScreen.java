@@ -1,6 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.currentnews;
 
 import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
@@ -15,6 +16,26 @@ import mortar.MortarScope;
 
 @Screen(R.layout.screen_cur_news)
 public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
+    private final NewsDto currentNews;
+
+    public CurNewsScreen(NewsDto currentNew) {
+        this.currentNews = currentNew;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CurNewsScreen that = (CurNewsScreen) o;
+        return currentNews.equals(that.currentNews);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + currentNews.hashCode();
+    }
+
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
         return DaggerCurNewsScreen_Component.builder()
@@ -52,7 +73,7 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         RootPresenter getRootPresenter();
     }
 
-    public class CurNewsPresenter extends AbstractPresenter<CurNewsView, CurNewsModel>{
+    public class CurNewsPresenter extends AbstractPresenter<CurNewsView, CurNewsModel> {
 
         @Override
         protected void initActionBar() {

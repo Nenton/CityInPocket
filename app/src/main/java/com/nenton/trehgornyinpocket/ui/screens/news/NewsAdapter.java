@@ -45,11 +45,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderNews holder, int position) {
-        NewsDto currentNew = news.get(position);
+        final NewsDto currentNew = news.get(position);
         holder.description.setText(currentNew.getDescription());
         picasso.load(currentNew.getImagesUrl().get(0))
                 .into(holder.image);
         holder.date.setText(currentNew.getDate().toString());
+        holder.itemView.setOnClickListener(view -> presenter.clickOnNew(currentNew));
     }
 
     @Override
@@ -57,13 +58,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
         return news.size();
     }
 
-    public class ViewHolderNews extends RecyclerView.ViewHolder {
+    public void addNew(NewsDto newsDto) {
+        if (news != null) {
+            news.add(newsDto);
+            notifyDataSetChanged();
+        }
+    }
+
+    class ViewHolderNews extends RecyclerView.ViewHolder {
         private TextView description;
         private ImageView image;
         private TextView date;
 
-        public ViewHolderNews(View itemView) {
-            // TODO: 21.07.2018 попробовать butterknife
+        ViewHolderNews(View itemView) {
             super(itemView);
             description = itemView.findViewById(R.id.organization_desc_tv);
             image = itemView.findViewById(R.id.announcement_image_iv);
