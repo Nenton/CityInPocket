@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by serge on 25.03.2017.
@@ -48,7 +51,7 @@ public class ViewHelper {
             @Override
             public boolean onPreDraw() {
                 final ViewTreeObserver observer = view.getViewTreeObserver();
-                if (observer.isAlive()){
+                if (observer.isAlive()) {
                     observer.removeOnPreDrawListener(this);
                 }
 
@@ -59,7 +62,12 @@ public class ViewHelper {
 
     }
 
-    public interface OnMeasureCallback{
+    public static String getDateFromPattern(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+        return format.format(date);
+    }
+
+    public interface OnMeasureCallback {
         void onMeasure(View view, int width, int height);
     }
 }

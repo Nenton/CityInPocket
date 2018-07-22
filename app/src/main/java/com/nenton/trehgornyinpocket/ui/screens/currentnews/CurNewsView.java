@@ -9,6 +9,7 @@ import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
+import com.nenton.trehgornyinpocket.utils.ViewHelper;
 
 import butterknife.BindView;
 
@@ -41,7 +42,7 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
     public void initView(NewsDto currentNews) {
         titleView.setText(currentNews.getDescription());
         descriptionView.setText(currentNews.getFullNew());
-        date.setText(currentNews.getDate().toString());
+        date.setText(ViewHelper.getDateFromPattern(currentNews.getDate()));
 
         adapter = new CurNewsAdapter();
         photosViews.setAdapter(adapter);

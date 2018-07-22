@@ -80,7 +80,7 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         @Override
         protected void initActionBar() {
             mRootPresenter.newActionBarBuilder()
-                    .setTitle("Current new")
+                    .setTitle("News")
                     .setBackArrow(true)
                     .build();
         }
