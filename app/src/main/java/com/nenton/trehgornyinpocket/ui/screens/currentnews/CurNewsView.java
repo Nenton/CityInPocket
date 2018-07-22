@@ -25,6 +25,10 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
 
     private CurNewsAdapter adapter;
 
+    public CurNewsAdapter getAdapter() {
+        return adapter;
+    }
+
     public CurNewsView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -44,13 +48,16 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
         descriptionView.setText(currentNews.getFullNew());
         date.setText(ViewHelper.getDateFromPattern(currentNews.getDate()));
 
-        adapter = new CurNewsAdapter();
-        photosViews.setAdapter(adapter);
-
-        for (String urlPhotos : currentNews.getImagesUrl()) {
-            adapter.addUrl(urlPhotos);
+        if (currentNews.getImagesUrl() == null || currentNews.getImagesUrl().isEmpty()) {
+            photosViews.setVisibility(GONE);
+        } else {
+            adapter = new CurNewsAdapter();
+            photosViews.setAdapter(adapter);
+            for (String urlPhotos : currentNews.getImagesUrl()) {
+                adapter.addUrl(urlPhotos);
+            }
+            adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/812271/1934c8a2-a8f3-4b18-8ed5-7683e9842bfb/s1200");
+            adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/70729/6b068f73-2c77-4d10-927e-9fd5b2ee2302/s1200");
         }
-        adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/812271/1934c8a2-a8f3-4b18-8ed5-7683e9842bfb/s1200");
-        adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/70729/6b068f73-2c77-4d10-927e-9fd5b2ee2302/s1200");
     }
 }
