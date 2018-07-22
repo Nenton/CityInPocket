@@ -59,10 +59,10 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         holder.announcementTitle.setText(announcement.getTitle());
         holder.announcementDate.setText(ViewHelper.getDateFromPattern(announcement.getDate()));
 
-        if (announcement.getImagesUrl() != null && announcement.getImagesUrl().size() > 0) {
-            picasso.load(announcement.getImagesUrl().get(0))
-                    .into(holder.announcementImage);
-        }
+        picasso.load(announcement.getImagesUrl().get(0))
+                .into(holder.announcementImage);
+
+        holder.itemView.setOnClickListener(view -> presenter.clickOnAnnouncement(announcement));
     }
 
     @Override

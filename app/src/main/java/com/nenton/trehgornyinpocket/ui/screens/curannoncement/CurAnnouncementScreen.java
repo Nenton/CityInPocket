@@ -1,6 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.curannoncement;
 
 import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
@@ -15,6 +16,12 @@ import mortar.MortarScope;
 
 @Screen(R.layout.screen_cur_announcements)
 public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootComponent> {
+    private AnnouncementDto announcement;
+
+    public CurAnnouncementScreen(AnnouncementDto announcement) {
+        this.announcement = announcement;
+    }
+
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
         return DaggerCurAnnouncementScreen_Component.builder()
@@ -52,7 +59,7 @@ public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootCompo
         RootPresenter getRootPresenter();
     }
 
-    public class CurAnnouncementPresenter extends AbstractPresenter<CurAnnouncementView, CurAnnouncementModel>{
+    public class CurAnnouncementPresenter extends AbstractPresenter<CurAnnouncementView, CurAnnouncementModel> {
 
         @Override
         protected void initActionBar() {
