@@ -33,6 +33,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
         notifyDataSetChanged();
     }
 
+    public void addNew(NewsDto newsDto) {
+        if (news != null) {
+            news.add(newsDto);
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         DaggerService.<NewsScreen.Component>getDaggerComponent(recyclerView.getContext()).inject(this);
@@ -49,7 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
     @Override
     public void onBindViewHolder(@NonNull ViewHolderNews holder, int position) {
         final NewsDto currentNew = news.get(position);
-        holder.description.setText(currentNew.getDescription());
+        holder.description.setText(currentNew.getTitle());
         picasso.load(currentNew.getImagesUrl().get(0))
                 .into(holder.image);
         holder.date.setText(ViewHelper.getDateFromPattern(currentNew.getDate()));
@@ -62,13 +69,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
             return news.size();
         }
         return 0;
-    }
-
-    public void addNew(NewsDto newsDto) {
-        if (news != null) {
-            news.add(newsDto);
-            notifyDataSetChanged();
-        }
     }
 
     class ViewHolderNews extends RecyclerView.ViewHolder {

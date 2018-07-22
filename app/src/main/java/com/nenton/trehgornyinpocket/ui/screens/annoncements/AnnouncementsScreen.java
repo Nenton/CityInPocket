@@ -1,6 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.annoncements;
 
 import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import dagger.Provides;
 import mortar.MortarScope;
+import rx.Subscriber;
 
 @Screen(R.layout.screen_announcements)
 public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -65,6 +67,31 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
         protected void initDagger(MortarScope scope) {
             Component component = scope.getService(DaggerService.SERVICE_NAME);
             component.inject(this);
+        }
+
+        private class DataSubscriber extends Subscriber<AnnouncementDto> {
+            @Override
+            public void onCompleted() {
+                if (getRootView() != null) {
+                    getRootView().showMessage("Completed!");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (getRootView() != null) {
+                    getRootView().showError(e);
+                    // TODO: 22.07.2018 Add Firebase Crash
+                }
+            }
+
+            @Override
+            public void onNext(AnnouncementDto announcementDto) {
+                if (getView() != null) {
+                    AnnouncementsAdapter adapter = getView().getAdapter();
+                    adapter.addAnnouncement(announcementDto);
+                }
+            }
         }
     }
 }

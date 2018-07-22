@@ -44,8 +44,8 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
     }
 
     public void initView(NewsDto currentNews) {
-        titleView.setText(currentNews.getDescription());
-        descriptionView.setText(currentNews.getFullNew());
+        titleView.setText(currentNews.getTitle());
+        descriptionView.setText(currentNews.getDescription());
         date.setText(ViewHelper.getDateFromPattern(currentNews.getDate()));
 
         if (currentNews.getImagesUrl() == null || currentNews.getImagesUrl().isEmpty()) {
