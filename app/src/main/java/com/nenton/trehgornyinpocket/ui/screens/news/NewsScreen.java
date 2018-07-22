@@ -1,6 +1,9 @@
 package com.nenton.trehgornyinpocket.ui.screens.news;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.widget.SearchView;
+import android.view.MenuItem;
 
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
@@ -9,16 +12,18 @@ import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.flow.Screen;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
+import com.nenton.trehgornyinpocket.mvp.presenters.MenuItemHolder;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
+import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsScreen;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import dagger.Provides;
+import flow.Flow;
 import mortar.MortarScope;
+import rx.Subscriber;
 
 @Screen(R.layout.screen_news)
 public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -60,12 +65,17 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         RootPresenter getRootPresenter();
     }
 
-    public class NewsPresenter extends AbstractPresenter<NewsView, NewsModel> {
+    public class NewsPresenter extends AbstractPresenter<NewsView, NewsModel> implements MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener {
+        private String query;
+        private Handler handler = new Handler();
 
         @Override
         protected void initActionBar() {
+            MenuItemHolder.MenuItemSearch itemSearch = new MenuItemHolder.MenuItemSearch(
+                    "Search news by description", this, this, query, true);
             mRootPresenter.newActionBarBuilder()
                     .setTitle("News")
+                    .addAction(new MenuItemHolder("Search", R.drawable.ic_search, menuItem -> false, itemSearch))
                     .build();
         }
 
@@ -83,21 +93,78 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         private void loadData() {
             if (getView() != null) {
-                List<NewsDto> news = new ArrayList<>();
+                List<NewsDto> newsMock = mModel.getNewsMock();
+                getView().getAdapter().swapAdapter(newsMock);
+            }
+        }
 
-                List<String> images = new ArrayList<>();
-                images.add("https://avatars.mds.yandex.net/get-pdb/25978/a6b1eff3-6894-434c-947e-cc0b69309565/s1200");
-                news.add(new NewsDto("First", "FIRST NEW", new Date(System.currentTimeMillis()), images, ""));
+        public void clickOnNew(NewsDto currentNew) {
+            if (getView() != null) {
+                CurNewsScreen curNewsScreen = new CurNewsScreen(currentNew);
+                Flow.get(getView().getContext())
+                        .set(curNewsScreen);
+            }
+        }
 
-                images = new ArrayList<>();
-                images.add("https://avatars.mds.yandex.net/get-pdb/812271/1934c8a2-a8f3-4b18-8ed5-7683e9842bfb/s1200");
-                news.add(new NewsDto("Second", "SECOND NEW", new Date(System.currentTimeMillis()), images, ""));
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
 
-                images = new ArrayList<>();
-                images.add("https://avatars.mds.yandex.net/get-pdb/70729/6b068f73-2c77-4d10-927e-9fd5b2ee2302/s1200");
-                news.add(new NewsDto("Third", "THIRD NEW", new Date(System.currentTimeMillis()), images, ""));
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            if (newText.isEmpty()) {
+                showNews(newText, 0);
+            } else {
+                showNews(newText, 2000);
+            }
+            return true;
+        }
 
-                getView().getAdapter().swapAdapter(news);
+        @Override
+        public boolean onMenuItemActionExpand(MenuItem menuItem) {
+            return true;
+        }
+
+        @Override
+        public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+            // TODO: 22.07.2018 Стандартный возврат всех данных
+            query = "";
+            return true;
+        }
+
+        private void showNews(final String q, int delay) {
+            Runnable runnable = () -> {
+                query = q;
+                getRootView().showMessage("Search...");
+                // TODO: 22.07.2018 Реализовать получение данных с поисковым запросом
+            };
+            handler.removeCallbacks(runnable);
+            handler.postDelayed(runnable, delay);
+        }
+
+        private class DataSubscriber extends Subscriber<NewsDto> {
+            @Override
+            public void onCompleted() {
+                if (getRootView() != null) {
+                    getRootView().showMessage("Completed!");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (getRootView() != null) {
+                    getRootView().showError(e);
+                    // TODO: 22.07.2018 Add Firebase Crash
+                }
+            }
+
+            @Override
+            public void onNext(NewsDto newsDto) {
+                if (getView() != null) {
+                    NewsAdapter adapter = getView().getAdapter();
+                    adapter.addNew(newsDto);
+                }
             }
         }
     }

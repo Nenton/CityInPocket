@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -193,10 +194,24 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (mActionBarMenuItems != null && !mActionBarMenuItems.isEmpty()) {
             for (MenuItemHolder menuItem : mActionBarMenuItems) {
-                MenuItem item = menu.add(menuItem.getTitle());
-                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS)
-                        .setIcon(menuItem.getIconResId())
-                        .setOnMenuItemClickListener(menuItem.getListener());
+                if (menuItem.getMenuItemSearch() != null) {
+                    getMenuInflater().inflate(R.menu.search_menu, menu);
+                    MenuItem searchItem = menu.findItem(R.id.search);
+                    SearchView searchView = (SearchView) searchItem.getActionView();
+                    if (menuItem.getMenuItemSearch().getQuery() != null
+                            && !menuItem.getMenuItemSearch().getQuery().isEmpty()) {
+                        searchItem.expandActionView();
+                        searchView.setQuery(menuItem.getMenuItemSearch().getQuery(), true);
+                    }
+                    searchView.setQueryHint(menuItem.getMenuItemSearch().getHint());
+                    searchItem.setOnActionExpandListener(menuItem.getMenuItemSearch().getExpandListener());
+                    searchView.setOnQueryTextListener(menuItem.getMenuItemSearch().getQueryListener());
+                } else {
+                    MenuItem item = menu.add(menuItem.getTitle());
+                    item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                            .setIcon(menuItem.getIconResId())
+                            .setOnMenuItemClickListener(menuItem.getListener());
+                }
             }
         } else {
             menu.clear();
