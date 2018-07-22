@@ -17,16 +17,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews> {
 
     @Inject
     Picasso picasso;
     @Inject
     NewsScreen.NewsPresenter presenter;
     private List<NewsDto> news;
-
-    public NewsAdapter() {
-    }
 
     public void swapAdapter(List<NewsDto> news) {
         this.news = news;
@@ -41,13 +38,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderNews onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderNews(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderNews holder, int position) {
         NewsDto currentNew = news.get(position);
         holder.description.setText(currentNew.getDescription());
         picasso.load(currentNew.getImagesUrl().get(0))
@@ -60,12 +57,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         return news.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolderNews extends RecyclerView.ViewHolder {
         private TextView description;
         private ImageView image;
         private TextView date;
 
-        public ViewHolder(View itemView) {
+        public ViewHolderNews(View itemView) {
             // TODO: 21.07.2018 попробовать butterknife
             super(itemView);
             description = itemView.findViewById(R.id.organization_desc_tv);

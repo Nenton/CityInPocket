@@ -71,7 +71,8 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         protected void initDagger(MortarScope scope) {
-            ((Component) scope.getService(DaggerService.SERVICE_NAME)).inject(this);
+            Component component = scope.getService(DaggerService.SERVICE_NAME);
+            component.inject(this);
         }
 
         @Override

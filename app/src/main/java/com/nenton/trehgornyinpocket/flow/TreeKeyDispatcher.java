@@ -28,7 +28,6 @@ import flow.State;
 import flow.Traversal;
 import flow.TraversalCallback;
 import flow.TreeKey;
-import mortar.MortarScope;
 
 public class TreeKeyDispatcher implements Dispatcher, KeyChanger {
 
@@ -50,7 +49,7 @@ public class TreeKeyDispatcher implements Dispatcher, KeyChanger {
         State outState = traversal.origin == null ? null : traversal.getState(traversal.origin.top());
         outKey = outState == null ? null : outState.getKey();
 
-        mRootFrame = (FrameLayout) mActivity.findViewById(R.id.root_frame);
+        mRootFrame = mActivity.findViewById(R.id.root_frame);
 
         if (inKey.equals(outKey)) {
             callback.onTraversalCompleted();
@@ -103,7 +102,7 @@ public class TreeKeyDispatcher implements Dispatcher, KeyChanger {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (from != null){
+                if (from != null) {
                     container.removeView(from);
                 }
                 callback.onTraversalCompleted();
@@ -118,18 +117,19 @@ public class TreeKeyDispatcher implements Dispatcher, KeyChanger {
     private Animator createAnimation(@Nullable View from, View to) {
 
         AnimatorSet set = new AnimatorSet();
+        String anim = "alpha";
         ObjectAnimator outAnimation = null;
-        if (from != null){
-            outAnimation = ObjectAnimator.ofFloat(from, "alpha", 1f, 0f);
+        if (from != null) {
+            outAnimation = ObjectAnimator.ofFloat(from, anim, 1f, 0f);
             outAnimation.setDuration(300);
         }
 
-        if (from == null){
-            ObjectAnimator toAnimation = ObjectAnimator.ofFloat(to, "alpha", 0f, 1f);
+        if (from == null) {
+            ObjectAnimator toAnimation = ObjectAnimator.ofFloat(to, anim, 0f, 1f);
             toAnimation.setDuration(300);
             set.play(toAnimation);
         } else {
-            ObjectAnimator toAnimation = ObjectAnimator.ofFloat(to, "alpha", 0f, 0f, 1f);
+            ObjectAnimator toAnimation = ObjectAnimator.ofFloat(to, anim, 0f, 0f, 1f);
             toAnimation.setDuration(600);
             set.playTogether(outAnimation, toAnimation);
         }

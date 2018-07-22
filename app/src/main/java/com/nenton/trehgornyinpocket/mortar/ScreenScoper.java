@@ -16,6 +16,11 @@ import mortar.MortarScope;
 public class ScreenScoper {
     private static final String TAG = "Screen Scooper";
     private static Map<String, MortarScope> sScopeMap = new HashMap<>();
+
+    private ScreenScoper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static MortarScope getScreenScope(AbstractScreen screen){
         if (!sScopeMap.containsKey(screen.getScopeName())){
             Log.e(TAG," getScreenScope: create new scope");
@@ -52,7 +57,7 @@ public class ScreenScoper {
             String genericName = ((Class)((ParameterizedType) screen.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName();
             String parentScopeName = genericName;
             if (parentScopeName.contains("$")){
-                parentScopeName = parentScopeName.substring(0, genericName.indexOf("$"));
+                parentScopeName = parentScopeName.substring(0, genericName.indexOf('$'));
             }
             return parentScopeName;
         } catch (Exception e){

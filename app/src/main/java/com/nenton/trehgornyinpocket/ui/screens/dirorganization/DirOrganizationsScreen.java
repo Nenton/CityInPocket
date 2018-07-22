@@ -1,8 +1,10 @@
 package com.nenton.trehgornyinpocket.ui.screens.dirorganization;
 
+import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
+import com.nenton.trehgornyinpocket.flow.Screen;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
@@ -11,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import dagger.Provides;
 import mortar.MortarScope;
 
+@Screen(R.layout.screen_organizations)
 public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComponent> {
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
@@ -53,12 +56,15 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
 
         @Override
         protected void initActionBar() {
-
+            mRootPresenter.newActionBarBuilder()
+                    .setTitle("Organizations")
+                    .build();
         }
 
         @Override
         protected void initDagger(MortarScope scope) {
-            ((Component) scope.getService(DaggerService.SERVICE_NAME)).inject(this);
+            Component component = scope.getService(DaggerService.SERVICE_NAME);
+            component.inject(this);
         }
     }
 }

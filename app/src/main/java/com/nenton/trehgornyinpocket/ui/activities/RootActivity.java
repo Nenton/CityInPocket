@@ -11,6 +11,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -37,7 +38,10 @@ import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.mvp.views.IActionBarView;
 import com.nenton.trehgornyinpocket.mvp.views.IRootView;
 import com.nenton.trehgornyinpocket.mvp.views.IView;
+import com.nenton.trehgornyinpocket.ui.screens.annoncements.AnnouncementsScreen;
+import com.nenton.trehgornyinpocket.ui.screens.dirorganization.DirOrganizationsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.news.NewsScreen;
+import com.nenton.trehgornyinpocket.ui.screens.weather.WeatherScreen;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -142,12 +146,12 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     public void showLoad() {
-
+        // TODO: 22.07.2018 implement me
     }
 
     @Override
     public void hideLoad() {
-
+        // TODO: 22.07.2018 implement me
     }
 
     @Override
@@ -211,7 +215,7 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     @Override
     public void removeTabLayout() {
         View tabView = mAppBarLayout.getChildAt(1);
-        if (tabView != null && tabView instanceof TabLayout) {
+        if (tabView instanceof TabLayout) {
             mAppBarLayout.removeView(tabView);
         }
     }
@@ -253,43 +257,29 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        Object key = null;
-//        switch (item.getItemId()) {
-//            case R.id.nav_account:
-//                key = new AccountScreen();
-//                break;
-//            case R.id.nav_catalog:
-//                key = new CatalogScreen();
-//                break;
-//            case R.id.nav_favorites:
-//                break;
-//            case R.id.nav_orders:
-//                break;
-//            case R.id.nav_notifications:
-//                break;
-//        }
-//
-//        if (key != null){
-//            Flow.get(this).set(key);
-//        }
-//
-//        mDrawerLayout.closeDrawer(GravityCompat.START);
+        Object key = null;
+        switch (item.getItemId()) {
+            case R.id.nav_news:
+                key = new NewsScreen();
+                break;
+            case R.id.nav_announcement:
+                key = new AnnouncementsScreen();
+                break;
+            case R.id.nav_organizations:
+                key = new DirOrganizationsScreen();
+                break;
+            case R.id.nav_weather:
+                key = new WeatherScreen();
+                break;
+        }
+
+        if (key != null) {
+            Flow.get(this).set(key);
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
-//    @Override
-//    public void initDrawer(UserInfoDto infoDto) {
-//        View header = mNavigationView.getHeaderView(0);
-//        ImageView avatar = (ImageView) header.findViewById(R.id.drawer_user_avatar);
-//        TextView userName = (TextView) header.findViewById(R.id.drawer_user_name);
-//
-//        mPicasso.load(infoDto.getAvatar())
-//                .fit()
-//                .centerCrop()
-//                .into(avatar);
-//
-//        userName.setText(infoDto.getName());
-//    }
 
     //region ========================= DI =========================
 
