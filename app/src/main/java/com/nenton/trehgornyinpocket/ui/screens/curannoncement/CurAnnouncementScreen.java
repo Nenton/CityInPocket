@@ -1,6 +1,9 @@
 package com.nenton.trehgornyinpocket.ui.screens.curannoncement;
 
+import android.os.Bundle;
+
 import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
@@ -15,6 +18,30 @@ import mortar.MortarScope;
 
 @Screen(R.layout.screen_cur_announcements)
 public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootComponent> {
+    private AnnouncementDto announcement;
+
+    public CurAnnouncementScreen(AnnouncementDto announcement) {
+        this.announcement = announcement;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        CurAnnouncementScreen that = (CurAnnouncementScreen) o;
+
+        return announcement != null ? announcement.equals(that.announcement) : that.announcement == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (announcement != null ? announcement.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public Object createScreenComponent(RootActivity.RootComponent parentComponent) {
         return DaggerCurAnnouncementScreen_Component.builder()
@@ -52,7 +79,7 @@ public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootCompo
         RootPresenter getRootPresenter();
     }
 
-    public class CurAnnouncementPresenter extends AbstractPresenter<CurAnnouncementView, CurAnnouncementModel>{
+    public class CurAnnouncementPresenter extends AbstractPresenter<CurAnnouncementView, CurAnnouncementModel> {
 
         @Override
         protected void initActionBar() {
@@ -66,6 +93,14 @@ public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootCompo
         protected void initDagger(MortarScope scope) {
             Component component = scope.getService(DaggerService.SERVICE_NAME);
             component.inject(this);
+        }
+
+        @Override
+        protected void onLoad(Bundle savedInstanceState) {
+            super.onLoad(savedInstanceState);
+            if (getView() != null) {
+                getView().initView(announcement);
+            }
         }
     }
 }

@@ -73,6 +73,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         protected void initActionBar() {
             MenuItemHolder.MenuItemSearch itemSearch = new MenuItemHolder.MenuItemSearch(
                     "Search news by description", this, this, query, true);
+
             mRootPresenter.newActionBarBuilder()
                     .setTitle("News")
                     .addAction(new MenuItemHolder("Search", R.drawable.ic_search, menuItem -> false, itemSearch))
