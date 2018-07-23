@@ -1,5 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.organization;
 
+import android.os.Bundle;
+
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -17,6 +19,24 @@ import mortar.MortarScope;
 @Screen(R.layout.screen_organization)
 public class OrganizationScreen extends AbstractScreen<RootActivity.RootComponent> {
     private OrganizationDto organization;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        OrganizationScreen that = (OrganizationScreen) o;
+
+        return organization != null ? organization.equals(that.organization) : that.organization == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (organization != null ? organization.hashCode() : 0);
+        return result;
+    }
 
     public OrganizationScreen(OrganizationDto organization) {
         this.organization = organization;
@@ -52,6 +72,8 @@ public class OrganizationScreen extends AbstractScreen<RootActivity.RootComponen
 
         void inject(OrganizationView view);
 
+        void inject(OrganizationAdapter adapter);
+
         Picasso getPicasso();
 
         RootPresenter getRootPresenter();
@@ -62,7 +84,7 @@ public class OrganizationScreen extends AbstractScreen<RootActivity.RootComponen
         @Override
         protected void initActionBar() {
             mRootPresenter.newActionBarBuilder()
-                    .setTitle("Current organization")
+                    .setTitle("Organization")
                     .setBackArrow(true)
                     .build();
         }
@@ -71,6 +93,14 @@ public class OrganizationScreen extends AbstractScreen<RootActivity.RootComponen
         protected void initDagger(MortarScope scope) {
             Component component = scope.getService(DaggerService.SERVICE_NAME);
             component.inject(this);
+        }
+
+        @Override
+        protected void onLoad(Bundle savedInstanceState) {
+            super.onLoad(savedInstanceState);
+            if (getView() != null) {
+                getView().initView(organization);
+            }
         }
     }
 }
