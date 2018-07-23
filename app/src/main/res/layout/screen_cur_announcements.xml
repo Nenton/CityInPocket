@@ -25,16 +25,18 @@
                 android:layout_height="@dimen/spacing_large_56"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="@dimen/spacing_normal_16"
+                android:src="@drawable/ic_calendar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/greyWhite" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/announcement_day_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="@dimen/font_large_36"
+                android:paddingTop="8dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintEnd_toStartOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintStart_toEndOf="@+id/announcement_image_calendar_iv"
@@ -51,6 +53,7 @@
                 android:layout_marginRight="@dimen/spacing_normal_16"
                 android:layout_marginStart="@dimen/spacing_small_8"
                 android:layout_marginTop="@dimen/spacing_small_8"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintTop_toTopOf="@+id/announcement_image_calendar_iv"

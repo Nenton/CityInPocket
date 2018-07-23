@@ -84,7 +84,7 @@ public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootCompo
         @Override
         protected void initActionBar() {
             mRootPresenter.newActionBarBuilder()
-                    .setTitle("Current announcement")
+                    .setTitle("Announcement")
                     .setBackArrow(true)
                     .build();
         }
