@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_small_8"
         android:layout_marginStart="@dimen/spacing_small_8"
-        app:layout_constraintStart_toEndOf="@+id/announcement_image_iv"
-        app:layout_constraintTop_toTopOf="@+id/announcement_image_iv"
+        app:layout_constraintStart_toEndOf="@+id/organization_image_iv"
+        app:layout_constraintTop_toTopOf="@+id/organization_image_iv"
         tools:text="Android" />
 
     <TextView
@@ -26,12 +26,12 @@
         android:layout_marginTop="@dimen/spacing_small_8"
         android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/announcement_image_iv"
+        app:layout_constraintStart_toEndOf="@+id/organization_image_iv"
         app:layout_constraintTop_toBottomOf="@+id/organization_name_tv"
         tools:text="Новость Новость Новость Новость Новость Новость Новость Новость " />
 
     <ImageView
-        android:id="@+id/announcement_image_iv"
+        android:id="@+id/organization_image_iv"
         android:layout_width="@dimen/spacing_large_56"
         android:layout_height="@dimen/spacing_large_56"
         android:layout_marginLeft="@dimen/spacing_small_8"
@@ -48,6 +48,6 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/spacing_small_8"
         android:background="@color/greyWhite"
-        app:layout_constraintTop_toBottomOf="@+id/announcement_image_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/organization_image_iv" />
 
 </android.support.constraint.ConstraintLayout>
