@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import rx.Observable;
 
@@ -20,7 +21,7 @@ public class NewsModel extends AbstractModel {
             String second = "08 Mar 2019";
             String third = "10 Jul 2019";
             String fourth = "31 Aug 2019";
-            SimpleDateFormat formatFrom = new SimpleDateFormat("dd MMM yyyy");
+            SimpleDateFormat formatFrom = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 
             List<String> images = new ArrayList<>();
             images.add("https://www.motto.net.ua/pic/201310/1280x768/motto.net.ua-61988.jpg");
@@ -50,6 +51,7 @@ public class NewsModel extends AbstractModel {
                     formatFrom.parse(fourth), images, "");
             return Observable.just(newsDto1, newsDto2, newsDto3, newsDto4);
         } catch (ParseException e) {
+            e.printStackTrace();
             return Observable.empty();
         }
     }
