@@ -15,7 +15,8 @@ public class AnnouncementsModel extends AbstractModel {
         // TODO: 22.07.2018 implement me with DB
         List<String> images = new ArrayList<>();
         images.add("https://avatars.mds.yandex.net/get-pdb/25978/a6b1eff3-6894-434c-947e-cc0b69309565/s1200");
-        AnnouncementDto announcementDto1 = new AnnouncementDto("First", "FIRST NEW", new Date(System.currentTimeMillis()), images, "");
+        AnnouncementDto announcementDto1 = new AnnouncementDto("First", "The new year celebration will be held on the main square of the city this time.",
+                new Date(System.currentTimeMillis()), images, "");
 
         images = new ArrayList<>();
         images.add("https://avatars.mds.yandex.net/get-pdb/812271/1934c8a2-a8f3-4b18-8ed5-7683e9842bfb/s1200");
