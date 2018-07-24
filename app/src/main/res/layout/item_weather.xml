@@ -12,12 +12,12 @@
         android:layout_marginLeft="@dimen/spacing_normal_16"
         android:layout_marginStart="@dimen/spacing_normal_16"
         android:layout_marginTop="@dimen/spacing_small_8"
-        android:background="@color/greyWhite"
+        tools:background="@color/greyWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/weather_day_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_small_8"
@@ -27,12 +27,11 @@
         tools:text="Tomorrow" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/weather_type_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_small_8"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/weather_image_iv"
+        app:layout_constraintStart_toStartOf="@+id/weather_day_tv"
         tools:text="Clear" />
 
     <TextView
@@ -42,7 +41,7 @@
         android:layout_marginEnd="@dimen/spacing_normal_16"
         android:layout_marginRight="@dimen/spacing_normal_16"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/weather_day_tv"
         tools:text="21" />
 
     <TextView
@@ -55,4 +54,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_max_tv"
         tools:text="7" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/greyWhite"
+        app:layout_constraintTop_toBottomOf="@+id/weather_image_iv" />
 </android.support.constraint.ConstraintLayout>

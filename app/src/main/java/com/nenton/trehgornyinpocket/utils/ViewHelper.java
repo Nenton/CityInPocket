@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
+import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,6 +68,60 @@ public class ViewHelper {
     public static String getDateFromPattern(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
         return format.format(date);
+    }
+
+    public static String getWeatherTextFromType(WeatherDto.WeatherType weatherType) {
+        switch (weatherType) {
+            case SUMMER:
+                return "Clear";
+            case RAIN:
+                return "Rain";
+            case SNOW:
+                return "Snow";
+            case SLEET:
+                return "Sleet";
+            case STORM:
+                return "Storm";
+            case WINDY:
+                return "Windy";
+            case CLOUDS:
+                return "Cloud";
+            case HEAVY_RAIN:
+                return "Heavy rain";
+            case RAIN_CLOUD:
+                return "Rain cloud";
+            case PARTLY_CLOUDY:
+                return "Partly cloudy";
+            default:
+                return "Partly cloudy";
+        }
+    }
+
+    public static int getWeatherImageFromType(WeatherDto.WeatherType weatherType) {
+        switch (weatherType) {
+            case SUMMER:
+                return R.drawable.ic_weather_summer;
+            case RAIN:
+                return R.drawable.ic_weather_rain;
+            case SNOW:
+                return R.drawable.ic_weather_snow;
+            case SLEET:
+                return R.drawable.ic_weather_sleet;
+            case STORM:
+                return R.drawable.ic_weather_storm;
+            case WINDY:
+                return R.drawable.ic_weather_windy_weather;
+            case CLOUDS:
+                return R.drawable.ic_weather_clouds;
+            case HEAVY_RAIN:
+                return R.drawable.ic_weather_heavy_rain;
+            case RAIN_CLOUD:
+                return R.drawable.ic_weather_rain_cloud;
+            case PARTLY_CLOUDY:
+                return R.drawable.ic_weather_partly_cloudy_day;
+            default:
+                return R.drawable.ic_weather_partly_cloudy_day;
+        }
     }
 
     public interface OnMeasureCallback {
