@@ -1,6 +1,9 @@
 package com.nenton.trehgornyinpocket.ui.screens.weather;
 
+import android.os.Bundle;
+
 import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
@@ -10,8 +13,11 @@ import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import dagger.Provides;
 import mortar.MortarScope;
+import rx.Subscriber;
 
 @Screen(R.layout.screen_weather)
 public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -65,6 +71,37 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
         protected void initDagger(MortarScope scope) {
             Component component = scope.getService(DaggerService.SERVICE_NAME);
             component.inject(this);
+        }
+
+        @Override
+        protected void onLoad(Bundle savedInstanceState) {
+            super.onLoad(savedInstanceState);
+            mCompSubs.add(mModel.getWeatherOnFourteenDays().subscribe(new DataSubscriber()));
+        }
+
+        private class DataSubscriber extends Subscriber<List<WeatherDto>> {
+            @Override
+            public void onCompleted() {
+                if (getRootView() != null) {
+                    getRootView().showMessage("Completed!");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (getRootView() != null) {
+                    getRootView().showError(e);
+                    // TODO: 22.07.2018 Add Firebase Crash
+                }
+            }
+
+            @Override
+            public void onNext(List<WeatherDto> weathers) {
+                if (getView() != null) {
+                    WeatherAdapter adapter = getView().getAdapter();
+                    adapter.reloadAdapter(weathers);
+                }
+            }
         }
     }
 }
