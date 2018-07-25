@@ -14,6 +14,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="@dimen/spacing_normal_16"
         android:maxLines="2"
+        android:fontFamily="@string/roboto_regular"
+        android:textColor="@color/greyBlack"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/announcement_image_iv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/announcement_image_iv"
@@ -37,9 +40,9 @@
         android:layout_marginLeft="@dimen/spacing_normal_16"
         android:layout_marginStart="@dimen/spacing_normal_16"
         android:layout_marginTop="@dimen/spacing_small_8"
-        android:src="@drawable/ic_time"
+        app:layout_constraintBottom_toBottomOf="@+id/announcement_image_iv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/organization_desc_tv" />
+        app:srcCompat="@drawable/ic_time" />
 
     <TextView
         android:id="@+id/organization_name_tv"

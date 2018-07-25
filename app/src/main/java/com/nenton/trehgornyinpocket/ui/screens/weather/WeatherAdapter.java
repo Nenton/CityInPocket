@@ -1,5 +1,6 @@
 package com.nenton.trehgornyinpocket.ui.screens.weather;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,12 +29,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     @Inject
     Picasso picasso;
 
+    private Context context;
+
     private List<WeatherDto> weathers = new ArrayList<>();
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         DaggerService.<WeatherScreen.Component>getDaggerComponent(recyclerView.getContext()).inject(this);
+        context = recyclerView.getContext();
     }
 
     public void reloadAdapter(List<WeatherDto> weathers) {
@@ -56,8 +60,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         WeatherDto weather = weathers.get(position);
         SimpleDateFormat format = new SimpleDateFormat("dd MMMM", Locale.ENGLISH);
         holder.dayText.setText(format.format(weather.getDate()));
-        holder.maxTempText.setText(weather.getTemperatureMax());
-        holder.minTempText.setText(weather.getTemperatureMin());
+        String degree = context.getResources().getString(R.string.degree);
+        holder.maxTempText.setText(weather.getTemperatureMax().concat(degree));
+        holder.minTempText.setText(weather.getTemperatureMin().concat(degree));
 
         holder.typeText.setText(ViewHelper.getWeatherTextFromType(weather.getWeatherType()));
 
