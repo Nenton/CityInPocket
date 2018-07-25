@@ -47,7 +47,7 @@ public class AnnouncementsModel extends AbstractModel {
             images.add("http://www.softoolstore.de/proxy.php?image=http%3A%2F%2Fgeek-nose.com%2Fwp-content%2Fuploads%2F2018%2F05%2F1-18.png&hash=56db1793481ed01de49738a264f091e7");
             AnnouncementDto announcementDto4 = new AnnouncementDto("When will the competition be held?", "When will the competition be held?",
                     formatFrom.parse(fourth), images, "");
-            return Observable.just(announcementDto1, announcementDto2, announcementDto3, announcementDto4);
+            return Observable.just(announcementDto1, announcementDto2, announcementDto3, announcementDto4, announcementDto1, announcementDto2, announcementDto3, announcementDto4);
         } catch (ParseException e) {
             e.printStackTrace();
             return Observable.empty();

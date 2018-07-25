@@ -49,7 +49,7 @@ public class NewsModel extends AbstractModel {
             images.add("http://www.softoolstore.de/proxy.php?image=http%3A%2F%2Fgeek-nose.com%2Fwp-content%2Fuploads%2F2018%2F05%2F1-18.png&hash=56db1793481ed01de49738a264f091e7");
             NewsDto newsDto4 = new NewsDto("Whose computer is more powerful?", "Yesterday there were competitions for the title of the owner of the most powerful computer in the city. Winner wins",
                     formatFrom.parse(fourth), images, "");
-            return Observable.just(newsDto1, newsDto2, newsDto3, newsDto4);
+            return Observable.just(newsDto1, newsDto2, newsDto3, newsDto4, newsDto1, newsDto2, newsDto3, newsDto4);
         } catch (ParseException e) {
             e.printStackTrace();
             return Observable.empty();

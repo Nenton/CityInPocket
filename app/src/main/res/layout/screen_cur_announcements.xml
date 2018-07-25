@@ -25,15 +25,18 @@
                 android:layout_height="@dimen/spacing_large_56"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="@dimen/spacing_normal_16"
+                android:elevation="4dp"
                 android:src="@drawable/ic_calendar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop" />
 
             <TextView
                 android:id="@+id/announcement_day_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:elevation="4dp"
                 android:paddingTop="8dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="32dp"
@@ -41,6 +44,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintStart_toEndOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintTop_toBottomOf="@+id/announcement_image_calendar_iv"
+                tools:targetApi="lollipop"
                 tools:text="18" />
 
 
@@ -53,6 +57,9 @@
                 android:layout_marginRight="@dimen/spacing_normal_16"
                 android:layout_marginStart="@dimen/spacing_small_8"
                 android:layout_marginTop="@dimen/spacing_small_8"
+                android:fontFamily="@string/roboto_regular"
+                android:textColor="@color/greyBlack"
+                android:textSize="@dimen/font_medium_16"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/announcement_image_calendar_iv"
@@ -64,7 +71,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@string/roboto_medium"
                 android:textAlignment="center"
+                android:textColor="@color/greyBlack"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintStart_toStartOf="@+id/announcement_image_calendar_iv"
                 app:layout_constraintTop_toBottomOf="@+id/announcement_image_calendar_iv"
@@ -79,6 +89,8 @@
                 android:layout_marginRight="@dimen/spacing_normal_16"
                 android:layout_marginStart="@dimen/spacing_normal_16"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@string/roboto_regular"
+                android:textColor="@color/greyBlack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/announcement_month_tv"
