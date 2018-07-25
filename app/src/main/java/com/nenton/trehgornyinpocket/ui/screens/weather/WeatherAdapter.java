@@ -61,10 +61,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         SimpleDateFormat format = new SimpleDateFormat("dd MMMM", Locale.ENGLISH);
         holder.dayText.setText(format.format(weather.getDate()));
         String degree = context.getResources().getString(R.string.degree);
-        String max = weather.getTemperatureMax();
-        String min = weather.getTemperatureMin();
-        holder.maxTempText.setText(max.concat(degree));
-        holder.minTempText.setText(min.concat(degree));
+        holder.maxTempText.setText(weather.getTemperatureMax().concat(degree));
+        holder.minTempText.setText(weather.getTemperatureMin().concat(degree));
 
         holder.typeText.setText(ViewHelper.getWeatherTextFromType(weather.getWeatherType()));
 
