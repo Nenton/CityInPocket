@@ -3,6 +3,7 @@
     <string name="roboto_regular">sans-serif</string>
     <string name="roboto_light">sans-serif-light</string>
     <string name="roboto_medium">sans-serif-medium</string>
+    <string name="roboto_thin">sans-serif-thin</string>
 
     <string name="open_drawer">open</string>
     <string name="close_drawer">close</string>
@@ -12,4 +13,5 @@
     <string name="action_weather">Weather</string>
     <string name="search">Search</string>
     <string name="degree">°</string>
+    <string name="city_name">Trehgorniy</string>
 </resources>
