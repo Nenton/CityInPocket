@@ -90,7 +90,6 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            getRootView().showError(new Exception("Проверка!!!"));
             updateData(mModel.getNewsAllObs());
         }
 

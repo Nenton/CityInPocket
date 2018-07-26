@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.facebook.stetho.Stetho;
+import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.components.AppComponent;
 import com.nenton.trehgornyinpocket.di.components.DaggerAppComponent;
@@ -16,6 +16,7 @@ import com.nenton.trehgornyinpocket.mortar.ScreenScoper;
 import com.nenton.trehgornyinpocket.ui.activities.DaggerRootActivity_RootComponent;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 
+import io.fabric.sdk.android.Fabric;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
 
@@ -64,6 +65,11 @@ public class App extends Application {
         ScreenScoper.registerScope(mMortarScope);
         ScreenScoper.registerScope(mRootActivityScope);
 
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)           // Enables Crashlytics debugger
+                .build();
+        Fabric.with(fabric);
     }
 
     private void createRootActivityComponent() {
