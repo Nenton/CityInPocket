@@ -38,7 +38,8 @@ public class RootPresenter extends Presenter<IRootView> {
     @Override
     protected void onEnterScope(MortarScope scope) {
         super.onEnterScope(scope);
-        ((RootActivity.RootComponent) scope.getService(DaggerService.SERVICE_NAME)).inject(this);
+        RootActivity.RootComponent component = scope.getService(DaggerService.SERVICE_NAME);
+        component.inject(this);
     }
 
     @Nullable
@@ -69,7 +70,7 @@ public class RootPresenter extends Presenter<IRootView> {
     }
 
     public void onRequestPermissionResult(int requetCode, @NonNull String[] permissions, @NonNull int[] grantResult) {
-
+        throw new UnsupportedOperationException();
     }
 
     public class ActionBarBuilder {
