@@ -1,5 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.annoncements;
 
+import android.util.Log;
+
 import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
 import com.nenton.trehgornyinpocket.mvp.models.AbstractModel;
 
@@ -49,7 +51,7 @@ public class AnnouncementsModel extends AbstractModel {
                     formatFrom.parse(fourth), images, "");
             return Observable.just(announcementDto1, announcementDto2, announcementDto3, announcementDto4, announcementDto1, announcementDto2, announcementDto3, announcementDto4);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(AnnouncementsModel.class.getName(), "Error", e);
             return Observable.empty();
         }
     }

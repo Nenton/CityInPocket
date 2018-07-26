@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
+import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -160,7 +161,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
             public void onError(Throwable e) {
                 if (getRootView() != null) {
                     getRootView().showError(e);
-                    // TODO: 22.07.2018 Add Firebase Crash
+                    Crashlytics.logException(e);
                 }
             }
 

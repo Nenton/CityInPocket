@@ -1,5 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.news;
 
+import android.util.Log;
+
 import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
 import com.nenton.trehgornyinpocket.mvp.models.AbstractModel;
 
@@ -51,7 +53,7 @@ public class NewsModel extends AbstractModel {
                     formatFrom.parse(fourth), images, "");
             return Observable.just(newsDto1, newsDto2, newsDto3, newsDto4, newsDto1, newsDto2, newsDto3, newsDto4);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(NewsModel.class.getName(), "Error", e);
             return Observable.empty();
         }
     }

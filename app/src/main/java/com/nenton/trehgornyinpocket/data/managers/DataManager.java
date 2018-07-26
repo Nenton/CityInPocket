@@ -14,7 +14,6 @@ import retrofit2.Retrofit;
 
 public class DataManager {
 
-    private static final String TAG = "DataManager";
     private static DataManager ourInstance = new DataManager();
 
     @Inject

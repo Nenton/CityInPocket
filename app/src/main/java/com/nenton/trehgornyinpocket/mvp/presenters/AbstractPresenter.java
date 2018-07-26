@@ -20,7 +20,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public abstract class AbstractPresenter<V extends AbstractView, M extends AbstractModel> extends ViewPresenter<V> {
 
-    private final String TAG = this.getClass().getSimpleName();
+    private final String tag = this.getClass().getSimpleName();
 
     @Inject
     protected M mModel;
@@ -63,7 +63,7 @@ public abstract class AbstractPresenter<V extends AbstractView, M extends Abstra
     protected abstract class ViewSubscriber<T> extends Subscriber<T> {
         @Override
         public void onCompleted() {
-            Log.d(TAG, "onCompleter observable");
+            Log.d(tag, "onCompleter observable");
         }
 
         @Override

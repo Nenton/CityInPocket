@@ -20,12 +20,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.BuildConfig;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -135,11 +137,10 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     public void showError(Throwable e) {
-//        FirebaseCrash.log("ROOT VIEW EXCEPTION");
-//        FirebaseCrash.report(e);
+        Crashlytics.logException(e);
         if (BuildConfig.DEBUG) {
             showMessage(e.getMessage());
-            e.printStackTrace();
+            Log.e(RootActivity.class.getName(), "Error", e);
         } else {
             showMessage("Что-то пошло не так. Попробуйте повторить позже");
         }

@@ -23,9 +23,6 @@ public class CurAnnouncementAdapter extends PagerAdapter {
     CurAnnouncementScreen.CurAnnouncementPresenter presenter;
     private List<String> urlsPhotos = new ArrayList<>();
 
-    public CurAnnouncementAdapter() {
-    }
-
     @Override
     public int getCount() {
         return urlsPhotos.size();
