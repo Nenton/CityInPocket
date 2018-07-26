@@ -29,6 +29,10 @@ public class CurAnnouncementView extends AbstractView<CurAnnouncementScreen.CurA
 
     private CurAnnouncementAdapter adapter;
 
+    public CurAnnouncementAdapter getAdapter() {
+        return adapter;
+    }
+
     public CurAnnouncementView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

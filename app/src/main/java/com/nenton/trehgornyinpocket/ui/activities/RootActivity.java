@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -139,7 +140,7 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
         Crashlytics.logException(e);
         if (BuildConfig.DEBUG) {
             showMessage(e.getMessage());
-            e.printStackTrace();
+            Log.e(RootActivity.class.getName(), "Error", e);
         } else {
             showMessage("Что-то пошло не так. Попробуйте повторить позже");
         }

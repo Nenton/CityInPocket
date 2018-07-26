@@ -1,23 +1,18 @@
 package com.nenton.trehgornyinpocket.mvp.presenters;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
-import com.nenton.trehgornyinpocket.di.DaggerService;
-import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.data.storage.dto.ActivityResultDto;
+import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.IRootView;
-import com.nenton.trehgornyinpocket.utils.App;
+import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import mortar.MortarScope;
 import mortar.Presenter;

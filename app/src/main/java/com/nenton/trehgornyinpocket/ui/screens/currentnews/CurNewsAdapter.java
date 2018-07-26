@@ -23,10 +23,6 @@ public class CurNewsAdapter extends PagerAdapter {
     CurNewsScreen.CurNewsPresenter presenter;
     private List<String> urlsPhotos = new ArrayList<>();
 
-    public CurNewsAdapter() {
-
-    }
-
     @Override
     public int getCount() {
         return urlsPhotos.size();
