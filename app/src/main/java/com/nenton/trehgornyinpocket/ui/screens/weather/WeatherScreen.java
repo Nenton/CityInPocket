@@ -2,6 +2,7 @@ package com.nenton.trehgornyinpocket.ui.screens.weather;
 
 import android.os.Bundle;
 
+import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -91,7 +92,7 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
             public void onError(Throwable e) {
                 if (getRootView() != null) {
                     getRootView().showError(e);
-                    // TODO: 22.07.2018 Add Firebase Crash
+                    Crashlytics.logException(e);
                 }
             }
 
