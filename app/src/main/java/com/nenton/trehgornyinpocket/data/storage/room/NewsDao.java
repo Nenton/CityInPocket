@@ -28,6 +28,6 @@ public interface NewsDao {
     @Query("delete from news where id = :id")
     void deleteNewsById(int id);
 
-    @Query("Select * from news where title = :query")
+    @Query("Select * from news where title like :query or description like :query")
     LiveData<List<NewsEntity>> loadNewsByQuery(String query);
 }

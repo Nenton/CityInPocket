@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.nenton.trehgornyinpocket.R;
@@ -92,8 +93,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            mModel.setLifecycle(((RootActivity) getRootView()));
-            updateData(mModel.getNewsAllObs());
+            updateData(mModel.getNewsAllObs(((RootActivity) getRootView())));
         }
 
         public void clickOnNew(NewsEntity currentNew) {
@@ -111,12 +111,12 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            if (newText.isEmpty()) {
-                showNews(newText, 0);
-            } else {
+            if (newText != null && !newText.isEmpty()) {
                 showNews(newText, 2000);
+                Log.e("onQueryTextChange", "Change text search");
+                return true;
             }
-            return true;
+            return false;
         }
 
         @Override
@@ -126,7 +126,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            updateData(mModel.getNewsAllObs());
+            updateData(mModel.getNewsAllObs(((RootActivity) getRootView())));
             query = "";
             return true;
         }
@@ -146,10 +146,10 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         private void showNews(final String q, int delay) {
             Runnable runnable = () -> {
-                query = q;
+                query = "%" + q + "%";
                 updateData(mModel.getNewsOnSearch(((RootActivity) getRootView()), query));
             };
-            handler.removeCallbacks(runnable);
+            handler.removeCallbacksAndMessages(null);
             handler.postDelayed(runnable, delay);
         }
 

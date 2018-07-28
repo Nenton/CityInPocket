@@ -28,7 +28,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
     private List<NewsEntity> news = new ArrayList<>();
 
     public void reloadAdapter(List<NewsEntity> news) {
-        this.news.clear();
         this.news = news;
         notifyDataSetChanged();
     }
