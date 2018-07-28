@@ -26,6 +26,7 @@ public class NewsViewModel extends AndroidViewModel {
             mediatorLiveData.removeSource(newsByQuery);
         }
         newsByQuery = AppDatabase.getInstance(this.getApplication()).newsDao().loadNewsByQuery(query);
+        mediatorLiveData.addSource(newsByQuery, value -> mediatorLiveData.setValue(value));
         return newsByQuery;
     }
 
