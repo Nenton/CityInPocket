@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
-@Component(modules = ModelModule.class)
+@Component(dependencies = AppComponent.class, modules = ModelModule.class)
 @Singleton
 public interface ModelComponent {
     void inject(AbstractModel abstractModel);

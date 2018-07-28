@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.stetho.Stetho;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.components.AppComponent;
 import com.nenton.trehgornyinpocket.di.components.DaggerAppComponent;
@@ -52,6 +53,11 @@ public class App extends Application {
         sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         createAppComponent();
         createRootActivityComponent();
+
+        Stetho.initialize(Stetho.newInitializerBuilder(getApplicationContext())
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(getApplicationContext()))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplicationContext()))
+                .build());
 
         mMortarScope = MortarScope.buildRootScope()
                 .withService(DaggerService.SERVICE_NAME, sAppComponent)

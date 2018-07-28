@@ -1,7 +1,6 @@
-package com.nenton.trehgornyinpocket.ui.screens.weather;
+package com.nenton.trehgornyinpocket.mvp.models;
 
 import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
-import com.nenton.trehgornyinpocket.mvp.models.AbstractModel;
 
 import java.util.ArrayList;
 import java.util.Date;

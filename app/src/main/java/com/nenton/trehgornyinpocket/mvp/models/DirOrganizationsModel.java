@@ -1,7 +1,6 @@
-package com.nenton.trehgornyinpocket.ui.screens.dirorganization;
+package com.nenton.trehgornyinpocket.mvp.models;
 
 import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
-import com.nenton.trehgornyinpocket.mvp.models.AbstractModel;
 
 import java.util.ArrayList;
 import java.util.List;

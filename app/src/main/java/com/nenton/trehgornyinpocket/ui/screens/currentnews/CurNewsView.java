@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
+import com.nenton.trehgornyinpocket.data.storage.room.NewsEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
@@ -43,7 +43,7 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
         return false;
     }
 
-    public void initView(NewsDto currentNews) {
+    public void initView(NewsEntity currentNews) {
         titleView.setText(currentNews.getTitle());
         descriptionView.setText(currentNews.getDescription());
         date.setText(ViewHelper.getDateFromPattern(currentNews.getDate()));

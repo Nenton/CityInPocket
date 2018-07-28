@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
+import com.nenton.trehgornyinpocket.data.storage.room.NewsEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
 import com.squareup.picasso.Picasso;
@@ -25,19 +25,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
     Picasso picasso;
     @Inject
     NewsScreen.NewsPresenter presenter;
-    private List<NewsDto> news = new ArrayList<>();
+    private List<NewsEntity> news = new ArrayList<>();
 
-    public void reloadAdapter() {
-        news.clear();
-        news = new ArrayList<>();
+    public void reloadAdapter(List<NewsEntity> news) {
+        this.news.clear();
+        this.news = news;
         notifyDataSetChanged();
-    }
-
-    public void addNew(NewsDto newsDto) {
-        if (news != null) {
-            news.add(newsDto);
-            notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -55,7 +48,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderNews holder, int position) {
-        final NewsDto currentNew = news.get(position);
+        final NewsEntity currentNew = news.get(position);
         holder.description.setText(currentNew.getTitle());
         picasso.load(currentNew.getImagesUrl().get(0))
                 .into(holder.image);
