@@ -4,6 +4,8 @@ import android.arch.persistence.room.TypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nenton.trehgornyinpocket.data.storage.room.ContactEntity;
+import com.nenton.trehgornyinpocket.data.storage.room.WeatherType;
 
 import java.lang.reflect.Type;
 import java.sql.Date;
@@ -19,9 +21,7 @@ public class ConverterRoom {
 
     @TypeConverter
     public static String fromList(List<String> list) {
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
+        return new Gson().toJson(list);
     }
 
     @TypeConverter
@@ -34,4 +34,27 @@ public class ConverterRoom {
         return date == null ? null : date.getTime();
     }
 
+    @TypeConverter
+    public static List<ContactEntity> fromContacts(String value) {
+        Type contactType = new TypeToken<List<ContactEntity>>() {
+        }.getType();
+        return new Gson().fromJson(value, contactType);
+    }
+
+    @TypeConverter
+    public static String toContacts(List<ContactEntity> entities) {
+        return new Gson().toJson(entities);
+    }
+
+    @TypeConverter
+    public static WeatherType fromWeatherType(String value) {
+        Type type = new TypeToken<WeatherType>() {
+        }.getType();
+        return new Gson().fromJson(value, type);
+    }
+
+    @TypeConverter
+    public static String toWeatherType(WeatherType type) {
+        return new Gson().toJson(type);
+    }
 }

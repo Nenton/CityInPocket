@@ -9,7 +9,6 @@ import rx.Observable;
 
 public class DirOrganizationsModel extends AbstractModel {
     public Observable<OrganizationDto> getOrganizationAllObs() {
-// TODO: 23.07.2018 implement me
         List<OrganizationDto.Contact> contacts = new ArrayList<>();
         contacts.add(new OrganizationDto.Contact(OrganizationDto.ContactType.CONTACT_PHONE, "+7-999-99-99"));
         contacts.add(new OrganizationDto.Contact(OrganizationDto.ContactType.CONTACT_PHONE, "+7-888-99-99"));
@@ -57,7 +56,6 @@ public class DirOrganizationsModel extends AbstractModel {
     }
 
     public Observable<OrganizationDto> getOrganizationsOnSearch(String query) {
-        // TODO: 23.07.2018 implement me
         List<OrganizationDto.Contact> contacts = new ArrayList<>();
         contacts.add(new OrganizationDto.Contact(OrganizationDto.ContactType.CONTACT_PHONE, "+7-999-99-99"));
         contacts.add(new OrganizationDto.Contact(OrganizationDto.ContactType.CONTACT_EMAIL, "test@test.test"));
