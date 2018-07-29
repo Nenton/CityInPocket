@@ -23,16 +23,16 @@ import mortar.bundler.BundleServiceRunner;
 
 public class App extends Application {
 
-    private static SharedPreferences sSharedPreferences;
-    private static Context sContext;
-    private static AppComponent sAppComponent;
-
-    public static AppComponent getAppComponent() {
-        return sAppComponent;
-    }
+    private SharedPreferences sSharedPreferences;
+    private Context sContext;
+    private AppComponent sAppComponent;
+    private RootActivity.RootComponent mRootActivityRootComponent;
     private MortarScope mMortarScope;
     private MortarScope mRootActivityScope;
-    private static RootActivity.RootComponent mRootActivityRootComponent;
+
+    public AppComponent getAppComponent() {
+        return sAppComponent;
+    }
 
     @Override
     public Object getSystemService(String name) {
@@ -92,11 +92,11 @@ public class App extends Application {
                 .build();
     }
 
-    public static Context getContext() {
+    public Context getContext() {
         return sContext;
     }
 
-    public static RootActivity.RootComponent getRootActivityRootComponent() {
+    public RootActivity.RootComponent getRootActivityRootComponent() {
         return mRootActivityRootComponent;
     }
 }

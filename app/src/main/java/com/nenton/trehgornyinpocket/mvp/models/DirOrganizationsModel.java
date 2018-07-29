@@ -62,15 +62,12 @@ public class DirOrganizationsModel extends AbstractModel {
                 "The transport company will deliver any goods to any point of the city",
                 "http://евро-палет.рф/wp-content/uploads/2015/12/Грузоперевозки.png",
                 contacts);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.organizationsDao().insertOrganization(organization1);
-                appDatabase.organizationsDao().insertOrganization(organization2);
-                appDatabase.organizationsDao().insertOrganization(organization3);
-                appDatabase.organizationsDao().insertOrganization(organization4);
-                appDatabase.organizationsDao().insertOrganization(organization5);
-            }
+        new Thread(() -> {
+            appDatabase.organizationsDao().insertOrganization(organization1);
+            appDatabase.organizationsDao().insertOrganization(organization2);
+            appDatabase.organizationsDao().insertOrganization(organization3);
+            appDatabase.organizationsDao().insertOrganization(organization4);
+            appDatabase.organizationsDao().insertOrganization(organization5);
         }).start();
     }
 

@@ -45,18 +45,15 @@ public class NewsModel extends AbstractModel {
         images.add("http://www.softoolstore.de/proxy.php?image=http%3A%2F%2Fgeek-nose.com%2Fwp-content%2Fuploads%2F2018%2F05%2F1-18.png&hash=56db1793481ed01de49738a264f091e7");
         NewsEntity newsDto4 = new NewsEntity("Whose computer is more powerful?", "Yesterday there were competitions for the title of the owner of the most powerful computer in the city. Winner wins",
                 new Date(123), images, "");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.newsDao().insertNews(newsDto1);
-                appDatabase.newsDao().insertNews(newsDto2);
-                appDatabase.newsDao().insertNews(newsDto3);
-                appDatabase.newsDao().insertNews(newsDto4);
-                appDatabase.newsDao().insertNews(newsDto1);
-                appDatabase.newsDao().insertNews(newsDto2);
-                appDatabase.newsDao().insertNews(newsDto3);
-                appDatabase.newsDao().insertNews(newsDto4);
-            }
+        new Thread(() -> {
+            appDatabase.newsDao().insertNews(newsDto1);
+            appDatabase.newsDao().insertNews(newsDto2);
+            appDatabase.newsDao().insertNews(newsDto3);
+            appDatabase.newsDao().insertNews(newsDto4);
+            appDatabase.newsDao().insertNews(newsDto1);
+            appDatabase.newsDao().insertNews(newsDto2);
+            appDatabase.newsDao().insertNews(newsDto3);
+            appDatabase.newsDao().insertNews(newsDto4);
         }).start();
     }
 

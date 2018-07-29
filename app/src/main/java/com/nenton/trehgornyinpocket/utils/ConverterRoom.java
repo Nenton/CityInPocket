@@ -12,6 +12,11 @@ import java.sql.Date;
 import java.util.List;
 
 public class ConverterRoom {
+
+    public ConverterRoom() {
+        throw new IllegalStateException("Utility class");
+    }
+
     @TypeConverter
     public static List<String> fromString(String value) {
         Type listType = new TypeToken<List<String>>() {
