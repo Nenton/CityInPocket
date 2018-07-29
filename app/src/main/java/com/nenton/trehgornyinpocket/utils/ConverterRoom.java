@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ConverterRoom {
 
-    public ConverterRoom() {
+    private ConverterRoom() {
         throw new IllegalStateException("Utility class");
     }
 
