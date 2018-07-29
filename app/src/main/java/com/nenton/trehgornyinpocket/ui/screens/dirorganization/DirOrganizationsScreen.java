@@ -1,29 +1,32 @@
 package com.nenton.trehgornyinpocket.ui.screens.dirorganization;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
-import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
+import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.flow.Screen;
+import com.nenton.trehgornyinpocket.mvp.models.DirOrganizationsModel;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
+import com.nenton.trehgornyinpocket.mvp.presenters.MenuItemHolder;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.ui.screens.organization.OrganizationScreen;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import dagger.Provides;
 import flow.Flow;
 import mortar.MortarScope;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
 
 @Screen(R.layout.screen_organizations)
 public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -71,8 +74,12 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
 
         @Override
         protected void initActionBar() {
+            MenuItemHolder.MenuItemSearch itemSearch = new MenuItemHolder.MenuItemSearch(
+                    "Search organizations by description", this, this, query, true);
+
             mRootPresenter.newActionBarBuilder()
                     .setTitle("Organizations")
+                    .addAction(new MenuItemHolder("Search", R.drawable.ic_search, menuItem -> false, itemSearch))
                     .build();
         }
 
@@ -85,10 +92,10 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            updateData(mModel.getOrganizationAllObs());
+            updateData(mModel.getOrganizationAllObs(((RootActivity) getRootView())));
         }
 
-        public void clickOnOrganization(OrganizationDto organization) {
+        public void clickOnOrganization(OrganizationEntity organization) {
             if (getView() != null) {
                 OrganizationScreen organizationScreen = new OrganizationScreen(organization);
                 Flow.get(getView().getContext())
@@ -103,11 +110,7 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            if (newText.isEmpty()) {
-                showNews(newText, 0);
-            } else {
-                showNews(newText, 2000);
-            }
+            showNews(newText, 2000);
             return true;
         }
 
@@ -118,55 +121,33 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            updateData(mModel.getOrganizationAllObs());
+            handler.removeCallbacksAndMessages(null);
+            updateData(mModel.getOrganizationAllObs(((RootActivity) getRootView())));
             query = "";
             return true;
         }
 
-        private void updateData(Observable<OrganizationDto> observable) {
-            if (getView() != null) {
-                getView().getAdapter().clearAdapter();
-                mCompSubs.clear();
-                mCompSubs.add(subscribeOnOrganizations(observable));
+        private void updateData(LiveData<List<OrganizationEntity>> observable) {
+            if (getRootView() != null && getView() != null) {
+                observable.observe(((RootActivity) getRootView()),
+                        new Observer<List<OrganizationEntity>>() {
+                            @Override
+                            public void onChanged(@Nullable List<OrganizationEntity> newsEntities) {
+                                observable.removeObserver(this);
+                                getView().getAdapter().reloadAdapter(newsEntities);
+                            }
+                        });
             }
-        }
-
-        private Subscription subscribeOnOrganizations(Observable<OrganizationDto> observable) {
-            return observable.subscribe(new DataSubscriber());
         }
 
         private void showNews(final String q, int delay) {
             Runnable runnable = () -> {
                 query = q;
-                updateData(mModel.getOrganizationsOnSearch(query));
+                updateData(mModel.getOrganizationsOnSearch(((RootActivity) getRootView()), query));
             };
-            handler.removeCallbacks(runnable);
+            handler.removeCallbacksAndMessages(null);
             handler.postDelayed(runnable, delay);
         }
 
-        private class DataSubscriber extends Subscriber<OrganizationDto> {
-            @Override
-            public void onCompleted() {
-                if (getRootView() != null) {
-                    getRootView().showMessage("Completed!");
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if (getRootView() != null) {
-                    getRootView().showError(e);
-                    Crashlytics.logException(e);
-                }
-            }
-
-            @Override
-            public void onNext(OrganizationDto organization) {
-                if (getView() != null) {
-                    DirOrganizationsAdapter adapter = getView().getAdapter();
-                    adapter.addOrganization(organization);
-                }
-            }
-        }
     }
 }

@@ -3,11 +3,12 @@ package com.nenton.trehgornyinpocket.ui.screens.organization;
 import android.os.Bundle;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
+import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.flow.Screen;
+import com.nenton.trehgornyinpocket.mvp.models.OrganizationModel;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
@@ -18,7 +19,7 @@ import mortar.MortarScope;
 
 @Screen(R.layout.screen_organization)
 public class OrganizationScreen extends AbstractScreen<RootActivity.RootComponent> {
-    private OrganizationDto organization;
+    private OrganizationEntity organization;
 
     @Override
     public boolean equals(Object o) {
@@ -38,7 +39,7 @@ public class OrganizationScreen extends AbstractScreen<RootActivity.RootComponen
         return result;
     }
 
-    public OrganizationScreen(OrganizationDto organization) {
+    public OrganizationScreen(OrganizationEntity organization) {
         this.organization = organization;
     }
 

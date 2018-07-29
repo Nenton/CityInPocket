@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
+import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
 
@@ -47,7 +47,7 @@ public class CurAnnouncementView extends AbstractView<CurAnnouncementScreen.CurA
         return false;
     }
 
-    public void initView(AnnouncementDto announcement) {
+    public void initView(AnnouncementEntity announcement) {
         announcementTitle.setText(announcement.getTitle());
         announcementDescription.setText(announcement.getDescription());
         SimpleDateFormat formatDay = new SimpleDateFormat("dd", Locale.ENGLISH);

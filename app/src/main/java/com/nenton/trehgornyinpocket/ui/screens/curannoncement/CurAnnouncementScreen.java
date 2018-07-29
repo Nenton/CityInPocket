@@ -3,11 +3,12 @@ package com.nenton.trehgornyinpocket.ui.screens.curannoncement;
 import android.os.Bundle;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
+import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.flow.Screen;
+import com.nenton.trehgornyinpocket.mvp.models.CurAnnouncementModel;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
@@ -18,9 +19,9 @@ import mortar.MortarScope;
 
 @Screen(R.layout.screen_cur_announcements)
 public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootComponent> {
-    private AnnouncementDto announcement;
+    private AnnouncementEntity announcement;
 
-    public CurAnnouncementScreen(AnnouncementDto announcement) {
+    public CurAnnouncementScreen(AnnouncementEntity announcement) {
         this.announcement = announcement;
     }
 

@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
+import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
 import com.squareup.picasso.Picasso;
@@ -53,7 +53,7 @@ public class OrganizationView extends AbstractView<OrganizationScreen.Organizati
         contactsView.setAdapter(adapter);
     }
 
-    public void initView(OrganizationDto organization) {
+    public void initView(OrganizationEntity organization) {
         name.setText(organization.getTitle());
         description.setText(organization.getDescription());
         picasso.load(organization.getImagesUrl())

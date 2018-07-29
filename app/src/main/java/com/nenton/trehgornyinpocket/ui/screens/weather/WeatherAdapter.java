@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
+import com.nenton.trehgornyinpocket.data.storage.room.WeatherEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
 import com.squareup.picasso.Picasso;
@@ -31,7 +31,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     private Context context;
 
-    private List<WeatherDto> weathers = new ArrayList<>();
+    private List<WeatherEntity> weathers = new ArrayList<>();
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -40,12 +40,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         context = recyclerView.getContext();
     }
 
-    public void reloadAdapter(List<WeatherDto> weathers) {
-        if (this.weathers != null) {
-            this.weathers.clear();
-            this.weathers = weathers;
-            notifyDataSetChanged();
-        }
+    public void reloadAdapter(List<WeatherEntity> weathers) {
+        this.weathers = weathers;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -57,7 +54,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
-        WeatherDto weather = weathers.get(position);
+        WeatherEntity weather = weathers.get(position);
         SimpleDateFormat format = new SimpleDateFormat("dd MMMM", Locale.ENGLISH);
         holder.dayText.setText(format.format(weather.getDate()));
         String degree = context.getResources().getString(R.string.degree);

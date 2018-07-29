@@ -3,11 +3,12 @@ package com.nenton.trehgornyinpocket.ui.screens.currentnews;
 import android.os.Bundle;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
+import com.nenton.trehgornyinpocket.data.storage.room.NewsEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.flow.Screen;
+import com.nenton.trehgornyinpocket.mvp.models.CurNewsModel;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
@@ -18,9 +19,9 @@ import mortar.MortarScope;
 
 @Screen(R.layout.screen_cur_news)
 public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
-    private final NewsDto currentNews;
+    private final NewsEntity currentNews;
 
-    public CurNewsScreen(NewsDto currentNew) {
+    public CurNewsScreen(NewsEntity currentNew) {
         this.currentNews = currentNew;
     }
 

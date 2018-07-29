@@ -1,17 +1,20 @@
 package com.nenton.trehgornyinpocket.ui.screens.annoncements;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
-import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
+import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
 import com.nenton.trehgornyinpocket.flow.Screen;
+import com.nenton.trehgornyinpocket.mvp.models.AnnouncementsModel;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.MenuItemHolder;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
@@ -19,12 +22,11 @@ import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.ui.screens.curannoncement.CurAnnouncementScreen;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import dagger.Provides;
 import flow.Flow;
 import mortar.MortarScope;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
 
 @Screen(R.layout.screen_announcements)
 public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -89,10 +91,10 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            updateData(mModel.getAnnouncementsAllObs());
+            updateData(mModel.getAnnouncementsAllObs(((RootActivity) getRootView())));
         }
 
-        public void clickOnAnnouncement(AnnouncementDto announcement) {
+        public void clickOnAnnouncement(AnnouncementEntity announcement) {
             if (getView() != null) {
                 CurAnnouncementScreen curAnnouncementScreen = new CurAnnouncementScreen(announcement);
                 Flow.get(getView().getContext())
@@ -107,11 +109,7 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            if (newText.isEmpty()) {
-                showNews(newText, 0);
-            } else {
-                showNews(newText, 2000);
-            }
+            showNews(newText, 2000);
             return true;
         }
 
@@ -122,55 +120,31 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            updateData(mModel.getAnnouncementsAllObs());
+            updateData(mModel.getAnnouncementsAllObs(((RootActivity) getRootView())));
             query = "";
             return true;
         }
 
-        private void updateData(Observable<AnnouncementDto> observable) {
-            if (getView() != null) {
-                getView().getAdapter().clearAdapter();
-                mCompSubs.clear();
-                mCompSubs.add(subscribeOnAnnouncement(observable));
+        private void updateData(LiveData<List<AnnouncementEntity>> observable) {
+            if (getRootView() != null && getView() != null) {
+                observable.observe(((RootActivity) getRootView()),
+                        new Observer<List<AnnouncementEntity>>() {
+                            @Override
+                            public void onChanged(@Nullable List<AnnouncementEntity> newsEntities) {
+                                observable.removeObserver(this);
+                                getView().getAdapter().reloadAdapter(newsEntities);
+                            }
+                        });
             }
-        }
-
-        private Subscription subscribeOnAnnouncement(Observable<AnnouncementDto> observable) {
-            return observable.subscribe(new DataSubscriber());
         }
 
         private void showNews(final String q, int delay) {
             Runnable runnable = () -> {
                 query = q;
-                updateData(mModel.getAnnouncementsOnSearch(query));
+                updateData(mModel.getAnnouncementsOnSearch(((RootActivity) getRootView()), query));
             };
-            handler.removeCallbacks(runnable);
+            handler.removeCallbacksAndMessages(null);
             handler.postDelayed(runnable, delay);
-        }
-
-        private class DataSubscriber extends Subscriber<AnnouncementDto> {
-            @Override
-            public void onCompleted() {
-                if (getRootView() != null) {
-                    getRootView().showMessage("Completed!");
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if (getRootView() != null) {
-                    getRootView().showError(e);
-                    Crashlytics.logException(e);
-                }
-            }
-
-            @Override
-            public void onNext(AnnouncementDto announcementDto) {
-                if (getView() != null) {
-                    AnnouncementsAdapter adapter = getView().getAdapter();
-                    adapter.addAnnouncement(announcementDto);
-                }
-            }
         }
     }
 }

@@ -1,8 +1,11 @@
 package com.nenton.trehgornyinpocket.di.modules;
 
 
+import android.content.Context;
+
 import com.birbit.android.jobqueue.JobManager;
 import com.birbit.android.jobqueue.config.Configuration;
+import com.nenton.trehgornyinpocket.data.managers.AppDatabase;
 import com.nenton.trehgornyinpocket.data.managers.DataManager;
 import com.nenton.trehgornyinpocket.utils.App;
 import com.nenton.trehgornyinpocket.utils.AppConfig;
@@ -30,5 +33,11 @@ public class ModelModule{
                 .consumerKeepAlive(AppConfig.KEEP_ALIVE)
                 .build();
         return new JobManager(configuration);
+    }
+
+    @Provides
+    @Singleton
+    AppDatabase provideAppDatabase(Context context) {
+        return AppDatabase.getInstance(context);
     }
 }
