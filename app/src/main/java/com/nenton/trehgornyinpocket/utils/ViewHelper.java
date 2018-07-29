@@ -9,7 +9,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
+import com.nenton.trehgornyinpocket.data.storage.room.WeatherType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class ViewHelper {
         return format.format(date);
     }
 
-    public static String getWeatherTextFromType(WeatherDto.WeatherType weatherType) {
+    public static String getWeatherTextFromType(WeatherType weatherType) {
         switch (weatherType) {
             case SUMMER:
                 return "Clear";
@@ -97,7 +97,7 @@ public class ViewHelper {
         }
     }
 
-    public static int getWeatherImageFromType(WeatherDto.WeatherType weatherType) {
+    public static int getWeatherImageFromType(WeatherType weatherType) {
         switch (weatherType) {
             case SUMMER:
                 return R.drawable.ic_weather_summer;

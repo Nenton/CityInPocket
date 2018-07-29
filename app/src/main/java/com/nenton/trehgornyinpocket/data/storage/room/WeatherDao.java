@@ -27,4 +27,7 @@ public interface WeatherDao {
 
     @Query("delete from weather where id = :id")
     void deleteWeatherById(int id);
+
+    @Query("delete from weather")
+    void deleteAll();
 }

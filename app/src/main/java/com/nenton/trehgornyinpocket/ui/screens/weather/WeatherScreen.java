@@ -1,10 +1,12 @@
 package com.nenton.trehgornyinpocket.ui.screens.weather;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
+import com.nenton.trehgornyinpocket.data.storage.room.WeatherEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.sqopes.DaggerScope;
 import com.nenton.trehgornyinpocket.flow.AbstractScreen;
@@ -19,7 +21,6 @@ import java.util.List;
 
 import dagger.Provides;
 import mortar.MortarScope;
-import rx.Subscriber;
 
 @Screen(R.layout.screen_weather)
 public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -78,31 +79,19 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            mCompSubs.add(mModel.getWeatherOnFourteenDays().subscribe(new DataSubscriber()));
+            updateData(mModel.getWeatherOnFourteenDays(((RootActivity) getRootView())));
         }
 
-        private class DataSubscriber extends Subscriber<List<WeatherDto>> {
-            @Override
-            public void onCompleted() {
-                if (getRootView() != null) {
-                    getRootView().showMessage("Completed!");
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if (getRootView() != null) {
-                    getRootView().showError(e);
-                    Crashlytics.logException(e);
-                }
-            }
-
-            @Override
-            public void onNext(List<WeatherDto> weathers) {
-                if (getView() != null) {
-                    WeatherAdapter adapter = getView().getAdapter();
-                    adapter.reloadAdapter(weathers);
-                }
+        private void updateData(LiveData<List<WeatherEntity>> observable) {
+            if (getRootView() != null && getView() != null) {
+                observable.observe(((RootActivity) getRootView()),
+                        new Observer<List<WeatherEntity>>() {
+                            @Override
+                            public void onChanged(@Nullable List<WeatherEntity> newsEntities) {
+                                observable.removeObserver(this);
+                                getView().getAdapter().reloadAdapter(newsEntities);
+                            }
+                        });
             }
         }
     }
