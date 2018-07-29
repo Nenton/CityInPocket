@@ -19,6 +19,9 @@ public interface AnnouncementsDao {
     @Insert
     void insertAnnouncement(AnnouncementEntity entity);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAnnouncement(List<AnnouncementEntity> list);
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateAnnouncement(AnnouncementEntity entity);
 

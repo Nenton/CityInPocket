@@ -131,7 +131,7 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
                         new Observer<List<AnnouncementEntity>>() {
                             @Override
                             public void onChanged(@Nullable List<AnnouncementEntity> newsEntities) {
-                                observable.removeObserver(this);
+//                                observable.removeObserver(this);
                                 getView().getAdapter().reloadAdapter(newsEntities);
                             }
                         });

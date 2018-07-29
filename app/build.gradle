@@ -65,8 +65,9 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     //firebase
-    implementation 'com.google.firebase:firebase-core:16.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
 
     def room_version = "1.1.1"
     implementation "android.arch.lifecycle:extensions:$room_version"

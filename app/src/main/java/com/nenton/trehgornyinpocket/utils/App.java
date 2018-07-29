@@ -24,13 +24,13 @@ import mortar.bundler.BundleServiceRunner;
 public class App extends Application {
 
     private SharedPreferences sSharedPreferences;
-    private Context sContext;
-    private AppComponent sAppComponent;
+    private static Context sContext;
+    private static AppComponent sAppComponent;
     private RootActivity.RootComponent mRootActivityRootComponent;
     private MortarScope mMortarScope;
     private MortarScope mRootActivityScope;
 
-    public AppComponent getAppComponent() {
+    public static AppComponent getAppComponent() {
         return sAppComponent;
     }
 
@@ -92,7 +92,7 @@ public class App extends Application {
                 .build();
     }
 
-    public Context getContext() {
+    public static Context getContext() {
         return sContext;
     }
 

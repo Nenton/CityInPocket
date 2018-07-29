@@ -1,18 +1,20 @@
 package com.nenton.trehgornyinpocket.data.storage.dto;
 
-import java.util.List;
+import java.util.Map;
 
 public class OrganizationDto {
+    private int id;
     private String title;
     private String description;
     private String imagesUrl;
-    private List<Contact> contacts;
+    private Map<String, Contact> contacts;
 
-    public OrganizationDto(String title, String description, String imagesUrl, List<Contact> contacts) {
-        this.title = title;
-        this.description = description;
-        this.imagesUrl = imagesUrl;
-        this.contacts = contacts;
+    public OrganizationDto() {
+        //For Firebase Database
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -27,19 +29,29 @@ public class OrganizationDto {
         return imagesUrl;
     }
 
-    public List<Contact> getContacts() {
+    public Map<String, Contact> getContacts() {
         return contacts;
     }
 
     public enum ContactType {
         CONTACT_PHONE,
         CONTACT_EMAIL,
-        CONTACT_TELEGRAM
+        CONTACT_TELEGRAM;
+
+        ContactType() {
+        }
+
+        public String getName() {
+            return this.name();
+        }
     }
 
     public static class Contact {
         private ContactType type;
         private String contactWay;
+
+        public Contact() {
+        }
 
         public Contact(ContactType type, String contactWay) {
             this.type = type;
