@@ -54,7 +54,7 @@ public class SyncIntentService extends IntentService {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<OrganizationEntity> organizations = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.getValue(NewsDto.class) != null) {
+                    if (snapshot.getValue(OrganizationDto.class) != null) {
                         organizations.add(new OrganizationEntity(snapshot.getValue(OrganizationDto.class)));
                     }
                 }
@@ -75,7 +75,7 @@ public class SyncIntentService extends IntentService {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<AnnouncementEntity> announcements = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.getValue(NewsDto.class) != null) {
+                    if (snapshot.getValue(AnnouncementDto.class) != null) {
                         announcements.add(new AnnouncementEntity(snapshot.getValue(AnnouncementDto.class)));
                     }
                 }

@@ -38,6 +38,9 @@ public class OrganizationDto {
         CONTACT_EMAIL,
         CONTACT_TELEGRAM;
 
+        ContactType() {
+        }
+
         public String getName() {
             return this.name();
         }
@@ -46,6 +49,9 @@ public class OrganizationDto {
     public static class Contact {
         private ContactType type;
         private String contactWay;
+
+        public Contact() {
+        }
 
         public Contact(ContactType type, String contactWay) {
             this.type = type;
