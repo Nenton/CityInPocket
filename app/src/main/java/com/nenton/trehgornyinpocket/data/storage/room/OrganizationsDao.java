@@ -19,6 +19,9 @@ public interface OrganizationsDao {
     @Insert
     void insertOrganization(OrganizationEntity entity);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrganization(List<OrganizationEntity> list);
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateOrganization(OrganizationEntity entity);
 

@@ -4,7 +4,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "news")
@@ -33,6 +36,17 @@ public class NewsEntity {
         this.date = date;
         this.imagesUrl = imagesUrl;
         this.videoUrl = videoUrl;
+    }
+
+    @Ignore
+    public NewsEntity(NewsDto value) {
+        this.id = value.getId();
+        this.title = value.getTitle();
+        this.description = value.getDescription();
+        this.date = new Date(value.getDate());
+        imagesUrl = new ArrayList<>();
+        imagesUrl.addAll(value.getImagesUrl().values());
+        this.videoUrl = value.getVideoUrl();
     }
 
     public int getId() {

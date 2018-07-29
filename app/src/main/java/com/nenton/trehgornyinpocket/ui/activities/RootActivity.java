@@ -45,6 +45,7 @@ import com.nenton.trehgornyinpocket.ui.screens.annoncements.AnnouncementsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.dirorganization.DirOrganizationsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.news.NewsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.weather.WeatherScreen;
+import com.nenton.trehgornyinpocket.utils.SyncIntentService;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -87,6 +88,12 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
         rootComponent.inject(this);
         mRootPresenter.takeView(this);
         initToolbar();
+        initData();
+    }
+
+    private void initData() {
+        Intent intent = new Intent(this, SyncIntentService.class);
+        startService(intent);
     }
 
     private void initToolbar() {

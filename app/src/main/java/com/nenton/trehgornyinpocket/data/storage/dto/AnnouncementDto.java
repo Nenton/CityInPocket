@@ -1,21 +1,21 @@
 package com.nenton.trehgornyinpocket.data.storage.dto;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 public class AnnouncementDto {
+    private int id;
     private String title;
     private String description;
-    private Date date;
-    private List<String> imagesUrl;
+    private long date;
+    private Map<String, String> imagesUrl;
     private String videoUrl;
 
-    public AnnouncementDto(String title, String description, Date date, List<String> imagesUrl, String videoUrl) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.imagesUrl = imagesUrl;
-        this.videoUrl = videoUrl;
+    public AnnouncementDto() {
+        //For Firebase Database
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -26,11 +26,11 @@ public class AnnouncementDto {
         return description;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public List<String> getImagesUrl() {
+    public Map<String, String> getImagesUrl() {
         return imagesUrl;
     }
 

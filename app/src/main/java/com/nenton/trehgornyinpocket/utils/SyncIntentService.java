@@ -11,14 +11,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.nenton.trehgornyinpocket.data.managers.AppDatabase;
 import com.nenton.trehgornyinpocket.data.managers.FirebaseManager;
+import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
+import com.nenton.trehgornyinpocket.data.storage.dto.NewsDto;
+import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
 import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.data.storage.room.NewsEntity;
 import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SyncIntentService extends IntentService {
     private ValueEventListener newsValueEventListener;
     private ValueEventListener announcementsValueEventListener;
     private ValueEventListener organizationsValueEventListener;
+    private final Object object = new Object();
 
     public SyncIntentService() {
         super("SyncIntentService");
@@ -45,14 +52,18 @@ public class SyncIntentService extends IntentService {
         organizationsValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<OrganizationEntity> organizations = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    insertOrganization(snapshot);
+                    if (snapshot.getValue(NewsDto.class) != null) {
+                        organizations.add(new OrganizationEntity(snapshot.getValue(OrganizationDto.class)));
+                    }
                 }
+                insertOrganization(organizations);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                // Nothing
             }
         };
         organizations.addValueEventListener(organizationsValueEventListener);
@@ -62,14 +73,18 @@ public class SyncIntentService extends IntentService {
         announcementsValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<AnnouncementEntity> announcements = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    insertAnnouncement(snapshot);
+                    if (snapshot.getValue(NewsDto.class) != null) {
+                        announcements.add(new AnnouncementEntity(snapshot.getValue(AnnouncementDto.class)));
+                    }
                 }
+                insertAnnouncement(announcements);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                // Nothing
             }
         };
         announcements.addValueEventListener(announcementsValueEventListener);
@@ -79,28 +94,44 @@ public class SyncIntentService extends IntentService {
         newsValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<NewsEntity> news = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    insertNews(snapshot);
+                    if (snapshot.getValue(NewsDto.class) != null) {
+                        news.add(new NewsEntity(snapshot.getValue(NewsDto.class)));
+                    }
                 }
+                insertNews(news);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                // Nothing
             }
         };
         news.addValueEventListener(newsValueEventListener);
     }
 
-    private void insertNews(DataSnapshot snapshot) {
-        AppDatabase.getInstance(SyncIntentService.this).newsDao().insertNews(snapshot.getValue(NewsEntity.class));
+    private void insertNews(List<NewsEntity> list) {
+        new Thread(() -> {
+            synchronized (object) {
+                AppDatabase.getInstance(SyncIntentService.this).newsDao().insertNews(list);
+            }
+        }).start();
     }
 
-    private void insertAnnouncement(DataSnapshot snapshot) {
-        AppDatabase.getInstance(SyncIntentService.this).announcementsDao().insertAnnouncement(snapshot.getValue(AnnouncementEntity.class));
+    private void insertAnnouncement(List<AnnouncementEntity> list) {
+        new Thread(() -> {
+            synchronized (object) {
+                AppDatabase.getInstance(SyncIntentService.this).announcementsDao().insertAnnouncement(list);
+            }
+        }).start();
     }
 
-    private void insertOrganization(DataSnapshot snapshot) {
-        AppDatabase.getInstance(SyncIntentService.this).organizationsDao().insertOrganization(snapshot.getValue(OrganizationEntity.class));
+    private void insertOrganization(List<OrganizationEntity> list) {
+        new Thread(() -> {
+            synchronized (object) {
+                AppDatabase.getInstance(SyncIntentService.this).organizationsDao().insertOrganization(list);
+            }
+        }).start();
     }
 }

@@ -137,7 +137,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
                         new Observer<List<NewsEntity>>() {
                             @Override
                             public void onChanged(@Nullable List<NewsEntity> newsEntities) {
-                                observable.removeObserver(this);
+//                                observable.removeObserver(this);
                                 getView().getAdapter().reloadAdapter(newsEntities);
                             }
                         });

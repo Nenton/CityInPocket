@@ -16,8 +16,11 @@ public interface NewsDao {
     @Query("Select * from news order by date")
     LiveData<List<NewsEntity>> loadAllNews();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNews(NewsEntity entity);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertNews(List<NewsEntity> list);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateNews(NewsEntity entity);
