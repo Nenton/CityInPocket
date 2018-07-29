@@ -10,15 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
+import com.nenton.trehgornyinpocket.data.storage.room.ContactEntity;
+import com.nenton.trehgornyinpocket.data.storage.room.ContactType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizationAdapter extends RecyclerView.Adapter<OrganizationAdapter.OrganizationViewHolder> {
-    private List<OrganizationDto.Contact> contacts = new ArrayList<>();
+    private List<ContactEntity> contacts = new ArrayList<>();
 
-    public void loadData(List<OrganizationDto.Contact> contacts) {
+    public void loadData(List<ContactEntity> contacts) {
         this.contacts = contacts;
         notifyDataSetChanged();
     }
@@ -32,14 +33,14 @@ public class OrganizationAdapter extends RecyclerView.Adapter<OrganizationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull OrganizationViewHolder holder, int position) {
-        OrganizationDto.Contact contact = contacts.get(position);
-        holder.textContact.setText(contact.getContactWay());
+        ContactEntity contact = contacts.get(position);
+        holder.textContact.setText(contact.getContact());
         holder.imageContact.setImageResource(getIdResByTypeContact(contact.getType()));
 
     }
 
     @DrawableRes
-    private int getIdResByTypeContact(OrganizationDto.ContactType type) {
+    private int getIdResByTypeContact(ContactType type) {
         switch (type) {
             case CONTACT_EMAIL:
                 return R.drawable.ic_email;

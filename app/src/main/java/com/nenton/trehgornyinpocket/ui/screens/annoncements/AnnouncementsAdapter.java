@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.AnnouncementDto;
+import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
 import com.squareup.picasso.Picasso;
@@ -26,19 +26,11 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     @Inject
     AnnouncementsScreen.AnnouncementsPresenter presenter;
 
-    private List<AnnouncementDto> announcementList = new ArrayList<>();
+    private List<AnnouncementEntity> announcementList = new ArrayList<>();
 
-    public void clearAdapter() {
-        announcementList.clear();
-        announcementList = new ArrayList<>();
+    public void reloadAdapter(List<AnnouncementEntity> announcementList) {
+        this.announcementList = announcementList;
         notifyDataSetChanged();
-    }
-
-    public void addAnnouncement(AnnouncementDto announcement) {
-        if (announcementList != null) {
-            announcementList.add(announcement);
-            notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -55,7 +47,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderAnnouncement holder, int position) {
-        AnnouncementDto announcement = announcementList.get(position);
+        AnnouncementEntity announcement = announcementList.get(position);
         holder.announcementTitle.setText(announcement.getTitle());
         holder.announcementDate.setText(ViewHelper.getDateFromPattern(announcement.getDate()));
 

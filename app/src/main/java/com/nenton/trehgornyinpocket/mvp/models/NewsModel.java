@@ -14,6 +14,7 @@ import java.util.List;
 public class NewsModel extends AbstractModel {
 
     public LiveData<List<NewsEntity>> getNewsAllObs(RootActivity lifecycle) {
+//        mockData();
         return ViewModelProviders.of(lifecycle).get(NewsViewModel.class).getNewsAll();
     }
 

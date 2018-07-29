@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.trehgornyinpocket.R;
-import com.nenton.trehgornyinpocket.data.storage.dto.OrganizationDto;
+import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.squareup.picasso.Picasso;
 
@@ -24,21 +24,11 @@ public class DirOrganizationsAdapter extends RecyclerView.Adapter<DirOrganizatio
     @Inject
     DirOrganizationsScreen.DirOrganizationsPresenter presenter;
 
-    private List<OrganizationDto> organizations = new ArrayList<>();
+    private List<OrganizationEntity> organizations = new ArrayList<>();
 
-    public void clearAdapter() {
-        if (organizations != null) {
-            organizations.clear();
-            organizations = new ArrayList<>();
+    public void reloadAdapter(List<OrganizationEntity> organizations) {
+        this.organizations = organizations;
             notifyDataSetChanged();
-        }
-    }
-
-    public void addOrganization(OrganizationDto organization) {
-        if (organizations != null) {
-            organizations.add(organization);
-            notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -55,7 +45,7 @@ public class DirOrganizationsAdapter extends RecyclerView.Adapter<DirOrganizatio
 
     @Override
     public void onBindViewHolder(@NonNull OrganizationsViewHolder holder, int position) {
-        OrganizationDto organization = organizations.get(position);
+        OrganizationEntity organization = organizations.get(position);
         holder.name.setText(organization.getTitle());
         holder.description.setText(organization.getDescription());
 

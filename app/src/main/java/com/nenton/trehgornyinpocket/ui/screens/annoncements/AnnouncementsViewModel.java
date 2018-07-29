@@ -1,4 +1,4 @@
-package com.nenton.trehgornyinpocket.ui.screens.curannoncement;
+package com.nenton.trehgornyinpocket.ui.screens.annoncements;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -11,17 +11,17 @@ import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 
 import java.util.List;
 
-public class AnnouncementsModel extends AndroidViewModel {
+public class AnnouncementsViewModel extends AndroidViewModel {
     private LiveData<List<AnnouncementEntity>> announcementsAll;
     private LiveData<List<AnnouncementEntity>> announcementsByQuery;
     private MediatorLiveData<List<AnnouncementEntity>> mediatorLiveData = new MediatorLiveData<>();
 
-    public AnnouncementsModel(@NonNull Application application) {
+    public AnnouncementsViewModel(@NonNull Application application) {
         super(application);
         announcementsAll = AppDatabase.getInstance(this.getApplication()).announcementsDao().loadAllAnnouncements();
     }
 
-    public LiveData<List<AnnouncementEntity>> getNewsByQuery(String query) {
+    public LiveData<List<AnnouncementEntity>> getAnnouncementsByQuery(String query) {
         if (announcementsByQuery != null) {
             mediatorLiveData.removeSource(announcementsByQuery);
         }
@@ -30,7 +30,7 @@ public class AnnouncementsModel extends AndroidViewModel {
         return announcementsByQuery;
     }
 
-    public LiveData<List<AnnouncementEntity>> getNewsAll() {
+    public LiveData<List<AnnouncementEntity>> getAnnouncementsAll() {
         return announcementsAll;
     }
 }
