@@ -95,9 +95,6 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
             updateData(mModel.getNewsAllObs(((RootActivity) getRootView())));
-            getRootView().showLoad();
-            Handler handler = new Handler();
-            handler.postDelayed(() -> getRootView().hideLoad(), 5000);
         }
 
         public void clickOnNew(NewsEntity currentNew) {
