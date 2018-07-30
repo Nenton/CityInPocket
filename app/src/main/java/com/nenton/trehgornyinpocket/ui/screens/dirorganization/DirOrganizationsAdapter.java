@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,8 +52,20 @@ public class DirOrganizationsAdapter extends RecyclerView.Adapter<DirOrganizatio
         holder.description.setText(organization.getDescription());
 
         picasso.load(organization.getImagesUrl())
-                .into(holder.image);
-        // TODO: 23.07.2018 placeholder
+                .placeholder(R.drawable.ic_organization)
+                .resize(150, 150)
+                .centerCrop()
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.image, new Callback.EmptyCallback() {
+                    @Override
+                    public void onError(Exception e) {
+                        picasso.load(organization.getImagesUrl())
+                                .placeholder(R.drawable.ic_organization)
+                                .resize(150, 150)
+                                .centerCrop()
+                                .into(holder.image);
+                    }
+                });
         holder.itemView.setOnClickListener(view -> presenter.clickOnOrganization(organization));
     }
 

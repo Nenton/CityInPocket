@@ -12,6 +12,8 @@ import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.NewsEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,7 +52,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
         final NewsEntity currentNew = news.get(position);
         holder.description.setText(currentNew.getTitle());
         picasso.load(currentNew.getImagesUrl().get(0))
-                .into(holder.image);
+                .placeholder(R.drawable.ic_newspaper)
+                .resize(200, 150)
+                .centerCrop()
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.image, new Callback.EmptyCallback() {
+                    @Override
+                    public void onError(Exception e) {
+                        picasso.load(currentNew.getImagesUrl().get(0))
+                                .placeholder(R.drawable.ic_newspaper)
+                                .resize(200, 150)
+                                .centerCrop()
+                                .into(holder.image);
+                    }
+                });
         holder.date.setText(ViewHelper.getDateFromPattern(currentNew.getDate()));
         holder.itemView.setOnClickListener(view -> presenter.clickOnNew(currentNew));
     }

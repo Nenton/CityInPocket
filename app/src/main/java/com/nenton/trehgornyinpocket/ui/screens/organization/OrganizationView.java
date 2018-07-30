@@ -10,6 +10,8 @@ import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.OrganizationEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -57,7 +59,20 @@ public class OrganizationView extends AbstractView<OrganizationScreen.Organizati
         name.setText(organization.getTitle());
         description.setText(organization.getDescription());
         picasso.load(organization.getImagesUrl())
-                .into(logo);
+                .placeholder(R.drawable.ic_organization)
+                .resize(250, 250)
+                .centerCrop()
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(logo, new Callback.EmptyCallback() {
+                    @Override
+                    public void onError(Exception e) {
+                        picasso.load(organization.getImagesUrl())
+                                .placeholder(R.drawable.ic_organization)
+                                .resize(250, 250)
+                                .centerCrop()
+                                .into(logo);
+                    }
+                });
 
         adapter.loadData(organization.getContacts());
     }

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.di.DaggerService;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,7 +53,20 @@ public class CurAnnouncementAdapter extends PagerAdapter {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_pager_image, container, false);
         ImageView imageView = view.findViewById(R.id.item_pager_iv);
         picasso.load(url)
-                .into(imageView);
+                .placeholder(R.drawable.ic_newspaper)
+                .resize(400, 300)
+                .centerCrop()
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(imageView, new Callback.EmptyCallback() {
+                    @Override
+                    public void onError(Exception e) {
+                        picasso.load(url)
+                                .placeholder(R.drawable.ic_newspaper)
+                                .resize(400, 300)
+                                .centerCrop()
+                                .into(imageView);
+                    }
+                });
         container.addView(view);
         return view;
     }

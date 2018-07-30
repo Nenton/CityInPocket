@@ -12,6 +12,8 @@ import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,7 +54,20 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         holder.announcementDate.setText(ViewHelper.getDateFromPattern(announcement.getDate()));
 
         picasso.load(announcement.getImagesUrl().get(0))
-                .into(holder.announcementImage);
+                .placeholder(R.drawable.ic_newspaper)
+                .resize(200, 150)
+                .centerCrop()
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.announcementImage, new Callback.EmptyCallback() {
+                    @Override
+                    public void onError(Exception e) {
+                        picasso.load(announcement.getImagesUrl().get(0))
+                                .placeholder(R.drawable.ic_newspaper)
+                                .resize(200, 150)
+                                .centerCrop()
+                                .into(holder.announcementImage);
+                    }
+                });
 
         holder.itemView.setOnClickListener(view -> presenter.clickOnAnnouncement(announcement));
     }
