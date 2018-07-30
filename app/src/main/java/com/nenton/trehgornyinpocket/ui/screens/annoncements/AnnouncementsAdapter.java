@@ -55,15 +55,15 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
 
         picasso.load(announcement.getImagesUrl().get(0))
                 .placeholder(R.drawable.ic_newspaper)
-                .resize(178, 100)
+                .resize(200, 150)
                 .centerCrop()
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.announcementImage, new Callback.EmptyCallback() {
                     @Override
                     public void onError(Exception e) {
                         picasso.load(announcement.getImagesUrl().get(0))
-                                .placeholder(R.drawable.ic_organization)
-                                .resize(178, 100)
+                                .placeholder(R.drawable.ic_newspaper)
+                                .resize(200, 150)
                                 .centerCrop()
                                 .into(holder.announcementImage);
                     }

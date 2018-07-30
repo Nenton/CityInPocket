@@ -53,7 +53,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
         holder.description.setText(currentNew.getTitle());
         picasso.load(currentNew.getImagesUrl().get(0))
                 .placeholder(R.drawable.ic_newspaper)
-                .resize(178, 100)
+                .resize(200, 150)
                 .centerCrop()
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.image, new Callback.EmptyCallback() {
@@ -61,7 +61,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolderNews
                     public void onError(Exception e) {
                         picasso.load(currentNew.getImagesUrl().get(0))
                                 .placeholder(R.drawable.ic_newspaper)
-                                .resize(178, 100)
+                                .resize(200, 150)
                                 .centerCrop()
                                 .into(holder.image);
                     }
