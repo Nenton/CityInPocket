@@ -134,7 +134,7 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
                         new Observer<List<OrganizationEntity>>() {
                             @Override
                             public void onChanged(@Nullable List<OrganizationEntity> newsEntities) {
-//                                observable.removeObserver(this);
+                                observable.removeObserver(this);
                                 getView().getAdapter().reloadAdapter(newsEntities);
                             }
                         });
