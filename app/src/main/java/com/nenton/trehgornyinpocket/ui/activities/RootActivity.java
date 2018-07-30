@@ -77,10 +77,17 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     CoordinatorLayout mCoordinatorLayout;
     @BindView(R.id.nav_root_view)
     NavigationView mNavigationView;
+    @BindView(R.id.wrap_container_pb)
+    FrameLayout mWrapProgressbar;
 
     private ActionBarDrawerToggle mToggle;
     private ActionBar mActionBar;
     private List<MenuItemHolder> mActionBarMenuItems;
+
+    private Runnable runnable = () -> {
+        mWrapProgressbar.setVisibility(View.GONE);
+        showMessage("Превышен лимит ожидания. Попробуйте позже");
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,12 +161,18 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     public void showLoad() {
-        // TODO: 22.07.2018 implement me
+        if (mWrapProgressbar != null) {
+            mWrapProgressbar.setVisibility(View.VISIBLE);
+            mWrapProgressbar.postDelayed(runnable, 10000);
+        }
     }
 
     @Override
     public void hideLoad() {
-        // TODO: 22.07.2018 implement me
+        if (mWrapProgressbar != null) {
+            mWrapProgressbar.setVisibility(View.GONE);
+            mWrapProgressbar.removeCallbacks(runnable);
+        }
     }
 
     @Override
