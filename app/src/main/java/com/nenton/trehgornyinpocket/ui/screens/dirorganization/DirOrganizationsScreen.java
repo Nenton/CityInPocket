@@ -20,6 +20,7 @@ import com.nenton.trehgornyinpocket.mvp.presenters.MenuItemHolder;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.ui.screens.organization.OrganizationScreen;
+import com.nenton.trehgornyinpocket.utils.UpdateType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -150,7 +151,14 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
         }
 
         public void swipeUpdate() {
-            // TODO: 30.07.2018 implement me
+            if (getRootView() != null) {
+                getRootView().startUpdateService(UpdateType.ORGANIZATIONS_UPDATE);
+            }
+            if (query != null && !query.isEmpty()) {
+                updateData(mModel.getOrganizationsOnSearch(((RootActivity) getRootView()), query));
+            } else {
+                updateData(mModel.getOrganizationAllObs(((RootActivity) getRootView())));
+            }
         }
     }
 }

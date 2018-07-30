@@ -21,6 +21,7 @@ import com.nenton.trehgornyinpocket.mvp.presenters.MenuItemHolder;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.ui.screens.currentnews.CurNewsScreen;
+import com.nenton.trehgornyinpocket.utils.UpdateType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -154,7 +155,14 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         }
 
         public void swipeUpdate() {
-            // TODO: 30.07.2018 implement me
+            if (getRootView() != null) {
+                getRootView().startUpdateService(UpdateType.NEWS_UPDATE);
+            }
+            if (query != null && !query.isEmpty()) {
+                updateData(mModel.getNewsOnSearch(((RootActivity) getRootView()), query));
+            } else {
+                updateData(mModel.getNewsAllObs(((RootActivity) getRootView())));
+            }
         }
     }
 }
