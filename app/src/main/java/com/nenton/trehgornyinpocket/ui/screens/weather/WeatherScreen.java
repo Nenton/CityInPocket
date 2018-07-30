@@ -15,6 +15,7 @@ import com.nenton.trehgornyinpocket.mvp.models.WeatherModel;
 import com.nenton.trehgornyinpocket.mvp.presenters.AbstractPresenter;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
+import com.nenton.trehgornyinpocket.utils.UpdateType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -93,6 +94,13 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
                             }
                         });
             }
+        }
+
+        public void swipeUpdate() {
+            if (getRootView() != null) {
+                getRootView().startUpdateService(UpdateType.WEATHER_UPDATE);
+            }
+            updateData(mModel.getWeatherOnFourteenDays(((RootActivity) getRootView())));
         }
     }
 }

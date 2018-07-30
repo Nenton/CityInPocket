@@ -28,7 +28,19 @@
             android:value="false" />
 
         <service
-            android:name=".utils.SyncIntentService"
+            android:name=".data.network.intentservices.NewsIntentService"
+            android:exported="false" />
+
+        <service
+            android:name=".data.network.intentservices.AnnouncementsIntentService"
+            android:exported="false" />
+
+        <service
+            android:name=".data.network.intentservices.OrganizationsIntentService"
+            android:exported="false" />
+
+        <service
+            android:name=".data.network.intentservices.WeatherIntentService"
             android:exported="false" />
 
     </application>

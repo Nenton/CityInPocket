@@ -30,6 +30,10 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.nenton.trehgornyinpocket.BuildConfig;
 import com.nenton.trehgornyinpocket.R;
+import com.nenton.trehgornyinpocket.data.network.intentservices.AnnouncementsIntentService;
+import com.nenton.trehgornyinpocket.data.network.intentservices.NewsIntentService;
+import com.nenton.trehgornyinpocket.data.network.intentservices.OrganizationsIntentService;
+import com.nenton.trehgornyinpocket.data.network.intentservices.WeatherIntentService;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.components.AppComponent;
 import com.nenton.trehgornyinpocket.di.modules.PicassoCacheModule;
@@ -45,7 +49,7 @@ import com.nenton.trehgornyinpocket.ui.screens.annoncements.AnnouncementsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.dirorganization.DirOrganizationsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.news.NewsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.weather.WeatherScreen;
-import com.nenton.trehgornyinpocket.utils.SyncIntentService;
+import com.nenton.trehgornyinpocket.utils.UpdateType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -88,12 +92,7 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
         rootComponent.inject(this);
         mRootPresenter.takeView(this);
         initToolbar();
-        initData();
-    }
-
-    private void initData() {
-        Intent intent = new Intent(this, SyncIntentService.class);
-        startService(intent);
+        startUpdateService(UpdateType.ALL_UPDATE);
     }
 
     private void initToolbar() {
@@ -247,6 +246,35 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     @Override
     public IView getCurrentScreen() {
         return (IView) mFrameContainer.getChildAt(0);
+    }
+
+    @Override
+    public void startUpdateService(UpdateType typeUpdate) {
+        switch (typeUpdate) {
+            case ALL_UPDATE:
+                startService(NewsIntentService.class);
+                startService(AnnouncementsIntentService.class);
+                startService(OrganizationsIntentService.class);
+                startService(WeatherIntentService.class);
+                break;
+            case NEWS_UPDATE:
+                startService(NewsIntentService.class);
+                break;
+            case WEATHER_UPDATE:
+                startService(WeatherIntentService.class);
+                break;
+            case ANNOUNCEMENTS_UPDATE:
+                startService(AnnouncementsIntentService.class);
+                break;
+            case ORGANIZATIONS_UPDATE:
+                startService(OrganizationsIntentService.class);
+                break;
+        }
+    }
+
+    private void startService(Class aClass) {
+        Intent intent = new Intent(this, aClass);
+        startService(intent);
     }
 
     @Override

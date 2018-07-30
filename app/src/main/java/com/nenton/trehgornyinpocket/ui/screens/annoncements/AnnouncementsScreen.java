@@ -20,6 +20,7 @@ import com.nenton.trehgornyinpocket.mvp.presenters.MenuItemHolder;
 import com.nenton.trehgornyinpocket.mvp.presenters.RootPresenter;
 import com.nenton.trehgornyinpocket.ui.activities.RootActivity;
 import com.nenton.trehgornyinpocket.ui.screens.curannoncement.CurAnnouncementScreen;
+import com.nenton.trehgornyinpocket.utils.UpdateType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -131,7 +132,7 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
                         new Observer<List<AnnouncementEntity>>() {
                             @Override
                             public void onChanged(@Nullable List<AnnouncementEntity> newsEntities) {
-//                                observable.removeObserver(this);
+                                observable.removeObserver(this);
                                 getView().getAdapter().reloadAdapter(newsEntities);
                             }
                         });
@@ -145,6 +146,17 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
             };
             handler.removeCallbacksAndMessages(null);
             handler.postDelayed(runnable, delay);
+        }
+
+        public void swipeUpdate() {
+            if (getRootView() != null) {
+                getRootView().startUpdateService(UpdateType.ANNOUNCEMENTS_UPDATE);
+            }
+            if (query != null && !query.isEmpty()) {
+                updateData(mModel.getAnnouncementsOnSearch(((RootActivity) getRootView()), query));
+            } else {
+                updateData(mModel.getAnnouncementsAllObs(((RootActivity) getRootView())));
+            }
         }
     }
 }
