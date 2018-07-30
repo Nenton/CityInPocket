@@ -94,5 +94,9 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
                         });
             }
         }
+
+        public void swipeUpdate() {
+            // TODO: 30.07.2018 implement me
+        }
     }
 }

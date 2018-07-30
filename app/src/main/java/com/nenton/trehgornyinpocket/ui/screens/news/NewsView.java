@@ -1,6 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.news;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -13,6 +14,8 @@ import butterknife.BindView;
 public class NewsView extends AbstractView<NewsScreen.NewsPresenter> {
     @BindView(R.id.news_rv)
     RecyclerView newsRecyclerView;
+    @BindView(R.id.news_swipe_srl)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private NewsAdapter adapter;
 
@@ -32,10 +35,17 @@ public class NewsView extends AbstractView<NewsScreen.NewsPresenter> {
 
     @Override
     protected void afterInflate() {
-        if (adapter == null){
+        if (adapter == null) {
             adapter = new NewsAdapter();
         }
         newsRecyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            mPresenter.swipeUpdate();
+            swipeRefreshLayout.postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+            }, 1500);
+        });
     }
 
     public NewsAdapter getAdapter() {

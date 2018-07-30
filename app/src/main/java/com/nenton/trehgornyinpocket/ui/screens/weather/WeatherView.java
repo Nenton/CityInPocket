@@ -1,6 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.weather;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -13,6 +14,8 @@ import butterknife.BindView;
 public class WeatherView extends AbstractView<WeatherScreen.WeatherPresenter> {
     @BindView(R.id.weather_rv)
     RecyclerView weatherRecyclerView;
+    @BindView(R.id.weather_swipe_srl)
+    SwipeRefreshLayout swipeRefreshLayout;
     private WeatherAdapter adapter;
 
     public WeatherView(Context context, AttributeSet attrs) {
@@ -34,8 +37,14 @@ public class WeatherView extends AbstractView<WeatherScreen.WeatherPresenter> {
         if (adapter == null) {
             adapter = new WeatherAdapter();
         }
-
         weatherRecyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            mPresenter.swipeUpdate();
+            swipeRefreshLayout.postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+            }, 1500);
+        });
     }
 
     public WeatherAdapter getAdapter() {

@@ -149,5 +149,8 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
             handler.postDelayed(runnable, delay);
         }
 
+        public void swipeUpdate() {
+            // TODO: 30.07.2018 implement me
+        }
     }
 }

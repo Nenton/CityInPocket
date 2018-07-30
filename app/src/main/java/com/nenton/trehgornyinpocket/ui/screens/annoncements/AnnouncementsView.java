@@ -1,6 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.annoncements;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -13,6 +14,8 @@ import butterknife.BindView;
 public class AnnouncementsView extends AbstractView<AnnouncementsScreen.AnnouncementsPresenter> {
     @BindView(R.id.announcements_rv)
     RecyclerView announcementsRecyclerView;
+    @BindView(R.id.announcements_swipe_srl)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private AnnouncementsAdapter adapter;
 
@@ -37,6 +40,13 @@ public class AnnouncementsView extends AbstractView<AnnouncementsScreen.Announce
         }
 
         announcementsRecyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            mPresenter.swipeUpdate();
+            swipeRefreshLayout.postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+            }, 1500);
+        });
     }
 
     public AnnouncementsAdapter getAdapter() {
