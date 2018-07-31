@@ -3,7 +3,6 @@ package com.nenton.trehgornyinpocket.ui.screens.news;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -72,7 +71,7 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
     public class NewsPresenter extends AbstractPresenter<NewsView, NewsModel> implements MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener {
         private String query;
-        private Handler handler = new Handler();
+        private Runnable runnable;
 
         @Override
         protected void initActionBar() {
@@ -127,6 +126,9 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+            if (getView() != null && runnable != null) {
+                getView().removeCallbacks(runnable);
+            }
             updateData(mModel.getNewsAllObs(((RootActivity) getRootView())));
             query = "";
             return true;
@@ -146,12 +148,17 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         }
 
         private void showNews(final String q, int delay) {
-            Runnable runnable = () -> {
+            Runnable newRunnable = () -> {
                 query = "%" + q + "%";
                 updateData(mModel.getNewsOnSearch(((RootActivity) getRootView()), query));
             };
-            handler.removeCallbacksAndMessages(null);
-            handler.postDelayed(runnable, delay);
+            if (getView() != null) {
+                if (runnable != null) {
+                    getView().removeCallbacks(runnable);
+                }
+                runnable = newRunnable;
+                getView().postDelayed(runnable, delay);
+            }
         }
 
         public void swipeUpdate() {
