@@ -49,6 +49,13 @@
                 android:layout_marginTop="@dimen/spacing_small_8"
                 tools:background="@color/greyWhite" />
 
+            <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                android:id="@+id/cur_news_exo_player"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:fastforward_increment="1000"
+                app:rewind_increment="1000" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -96,6 +96,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/announcement_month_tv"
                 tools:text="Какая-то новость" />
 
+            <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                android:id="@+id/cur_announcement_exo_player"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:fastforward_increment="1000"
+                app:layout_constraintTop_toBottomOf="@+id/announcement_photos"
+                app:rewind_increment="1000" />
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/announcement_photos"
                 android:layout_width="match_parent"
