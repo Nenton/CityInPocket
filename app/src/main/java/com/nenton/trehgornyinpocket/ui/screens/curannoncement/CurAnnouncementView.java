@@ -79,4 +79,8 @@ public class CurAnnouncementView extends AbstractView<CurAnnouncementScreen.CurA
     public void chainPlayer(SimpleExoPlayer exoPlayer) {
         exoPlayerView.setPlayer(exoPlayer);
     }
+
+    public void hidePlayer() {
+        exoPlayerView.setVisibility(GONE);
+    }
 }

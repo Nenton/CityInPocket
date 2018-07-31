@@ -123,6 +123,8 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
                     mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_PLAYER_KEY));
                     mExoPlayer.setPlayWhenReady(savedInstanceState.getBoolean(PLAY_KEY));
                 }
+            } else {
+                getView().hidePlayer();
             }
         }
 

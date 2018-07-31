@@ -126,6 +126,8 @@ public class CurAnnouncementScreen extends AbstractScreen<RootActivity.RootCompo
                     mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_PLAYER_KEY));
                     mExoPlayer.setPlayWhenReady(savedInstanceState.getBoolean(PLAY_KEY));
                 }
+            } else {
+                getView().hidePlayer();
             }
         }
 
