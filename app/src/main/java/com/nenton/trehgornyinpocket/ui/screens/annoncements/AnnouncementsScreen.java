@@ -3,7 +3,6 @@ package com.nenton.trehgornyinpocket.ui.screens.annoncements;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
@@ -70,7 +69,7 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
 
     public class AnnouncementsPresenter extends AbstractPresenter<AnnouncementsView, AnnouncementsModel> implements MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener {
         private String query;
-        private Handler handler = new Handler();
+        private Runnable runnable;
 
         @Override
         protected void initActionBar() {
@@ -121,6 +120,9 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+            if (getView() != null && runnable != null) {
+                getView().removeCallbacks(runnable);
+            }
             updateData(mModel.getAnnouncementsAllObs(((RootActivity) getRootView())));
             query = "";
             return true;
@@ -140,12 +142,17 @@ public class AnnouncementsScreen extends AbstractScreen<RootActivity.RootCompone
         }
 
         private void showNews(final String q, int delay) {
-            Runnable runnable = () -> {
+            Runnable newRunnable = () -> {
                 query = q;
                 updateData(mModel.getAnnouncementsOnSearch(((RootActivity) getRootView()), query));
             };
-            handler.removeCallbacksAndMessages(null);
-            handler.postDelayed(runnable, delay);
+            if (getView() != null) {
+                if (runnable != null) {
+                    getView().removeCallbacks(runnable);
+                }
+                runnable = newRunnable;
+                getView().postDelayed(runnable, delay);
+            }
         }
 
         public void swipeUpdate() {

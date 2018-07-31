@@ -3,7 +3,6 @@ package com.nenton.trehgornyinpocket.ui.screens.dirorganization;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
@@ -71,7 +70,7 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
     public class DirOrganizationsPresenter extends AbstractPresenter<DirOrganizationsView, DirOrganizationsModel>
             implements MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener {
         private String query;
-        private Handler handler = new Handler();
+        private Runnable runnable;
 
         @Override
         protected void initActionBar() {
@@ -122,7 +121,9 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            handler.removeCallbacksAndMessages(null);
+            if (getView() != null && runnable != null) {
+                getView().removeCallbacks(runnable);
+            }
             updateData(mModel.getOrganizationAllObs(((RootActivity) getRootView())));
             query = "";
             return true;
@@ -142,12 +143,17 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
         }
 
         private void showNews(final String q, int delay) {
-            Runnable runnable = () -> {
+            Runnable newRunnable = () -> {
                 query = q;
                 updateData(mModel.getOrganizationsOnSearch(((RootActivity) getRootView()), query));
             };
-            handler.removeCallbacksAndMessages(null);
-            handler.postDelayed(runnable, delay);
+            if (getView() != null) {
+                if (runnable != null) {
+                    getView().removeCallbacks(runnable);
+                }
+                runnable = newRunnable;
+                getView().postDelayed(runnable, delay);
+            }
         }
 
         public void swipeUpdate() {
