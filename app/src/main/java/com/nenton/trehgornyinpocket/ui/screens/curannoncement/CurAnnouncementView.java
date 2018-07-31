@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.AnnouncementEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -26,6 +28,8 @@ public class CurAnnouncementView extends AbstractView<CurAnnouncementScreen.CurA
     TextView announcementDescription;
     @BindView(R.id.announcement_photos)
     ViewPager viewPager;
+    @BindView(R.id.cur_announcement_exo_player)
+    SimpleExoPlayerView exoPlayerView;
 
     private CurAnnouncementAdapter adapter;
 
@@ -64,5 +68,15 @@ public class CurAnnouncementView extends AbstractView<CurAnnouncementScreen.CurA
                 adapter.addUrl(url);
             }
         }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        mPresenter.eventDetachedView();
+        super.onDetachedFromWindow();
+    }
+
+    public void chainPlayer(SimpleExoPlayer exoPlayer) {
+        exoPlayerView.setPlayer(exoPlayer);
     }
 }

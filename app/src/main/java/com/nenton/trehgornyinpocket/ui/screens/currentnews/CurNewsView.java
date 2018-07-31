@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.NewsEntity;
 import com.nenton.trehgornyinpocket.di.DaggerService;
@@ -22,6 +24,8 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
     ViewPager photosViews;
     @BindView(R.id.cur_news_date)
     TextView date;
+    @BindView(R.id.cur_news_exo_player)
+    SimpleExoPlayerView exoPlayerView;
 
     private CurNewsAdapter adapter;
 
@@ -43,6 +47,12 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
         return false;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        mPresenter.eventDetachedView();
+        super.onDetachedFromWindow();
+    }
+
     public void initView(NewsEntity currentNews) {
         titleView.setText(currentNews.getTitle());
         descriptionView.setText(currentNews.getDescription());
@@ -59,5 +69,9 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
             adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/812271/1934c8a2-a8f3-4b18-8ed5-7683e9842bfb/s1200");
             adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/70729/6b068f73-2c77-4d10-927e-9fd5b2ee2302/s1200");
         }
+    }
+
+    public void chainPlayer(SimpleExoPlayer exoPlayer) {
+        exoPlayerView.setPlayer(exoPlayer);
     }
 }

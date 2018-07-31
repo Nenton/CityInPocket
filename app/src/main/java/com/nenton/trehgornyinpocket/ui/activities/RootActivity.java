@@ -11,6 +11,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -49,6 +51,7 @@ import com.nenton.trehgornyinpocket.ui.screens.annoncements.AnnouncementsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.dirorganization.DirOrganizationsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.news.NewsScreen;
 import com.nenton.trehgornyinpocket.ui.screens.weather.WeatherScreen;
+import com.nenton.trehgornyinpocket.utils.Playable;
 import com.nenton.trehgornyinpocket.utils.UpdateType;
 import com.squareup.picasso.Picasso;
 
@@ -62,7 +65,10 @@ import flow.Flow;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
 
-public class RootActivity extends AppCompatActivity implements IRootView, IActionBarView, NavigationView.OnNavigationItemSelectedListener {
+public class RootActivity extends AppCompatActivity implements IRootView,
+        IActionBarView,
+        NavigationView.OnNavigationItemSelectedListener,
+        Playable {
     @Inject
     RootPresenter mRootPresenter;
     @BindView(R.id.root_frame)
@@ -84,6 +90,9 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     private ActionBar mActionBar;
     private List<MenuItemHolder> mActionBarMenuItems;
 
+    private MediaSessionCompat mMediaSession;
+    private PlaybackStateCompat.Builder mStateBuilder;
+
     private Runnable runnable = () -> {
         mWrapProgressbar.setVisibility(View.GONE);
         showMessage("Превышен лимит ожидания. Попробуйте позже");
@@ -91,6 +100,7 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initializeMediaSession();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_root);
         BundleServiceRunner.getBundleServiceRunner(this).onCreate(savedInstanceState);
@@ -357,6 +367,36 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
         RootPresenter getRootPresenter();
 
         Picasso getPicasso();
+    }
+    //endregion
+
+    //region ===================== Media session ========================
+    private void initializeMediaSession() {
+        mMediaSession = new MediaSessionCompat(this, RootActivity.class.getName());
+        mMediaSession.setFlags(
+                MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
+                        MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+
+        mMediaSession.setMediaButtonReceiver(null);
+        mStateBuilder = new PlaybackStateCompat.Builder()
+                .setActions(
+                        PlaybackStateCompat.ACTION_PLAY |
+                                PlaybackStateCompat.ACTION_PAUSE |
+                                PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS |
+                                PlaybackStateCompat.ACTION_PLAY_PAUSE);
+
+        mMediaSession.setPlaybackState(mStateBuilder.build());
+        mMediaSession.setActive(true);
+    }
+
+    @Override
+    public MediaSessionCompat getMediaSession() {
+        return mMediaSession;
+    }
+
+    @Override
+    public PlaybackStateCompat.Builder getStatePlayback() {
+        return mStateBuilder;
     }
     //endregion
 }
