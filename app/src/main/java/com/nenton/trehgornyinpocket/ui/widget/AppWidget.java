@@ -3,56 +3,61 @@ package com.nenton.trehgornyinpocket.ui.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 
+import com.google.gson.Gson;
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
+import com.nenton.trehgornyinpocket.utils.ViewHelper;
 
-/**
- * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link AppWidgetConfigureActivity AppWidgetConfigureActivity}
- */
 public class AppWidget extends AppWidgetProvider {
+
+    private static final String PREFS_NAME = "com.nenton.trehgornyinpocket.ui.widget.AppWidget";
+    private static final String PREF_PREFIX_KEY = "appwidget_";
+
+    static void saveTitlePref(Context context, int appWidgetId, WeatherDto weatherDto) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        Gson gson = new Gson();
+        prefs.putString(PREF_PREFIX_KEY + appWidgetId, gson.toJson(weatherDto));
+        prefs.apply();
+    }
+
+    static WeatherDto loadTitlePref(Context context, int appWidgetId) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        Gson gson = new Gson();
+        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
+        WeatherDto weatherDto = gson.fromJson(titleValue, WeatherDto.class);
+        if (weatherDto != null) {
+            return weatherDto;
+        } else {
+            return null;
+        }
+    }
+
+    static void deleteTitlePref(Context context, int appWidgetId) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
+        prefs.apply();
+    }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        WeatherDto weatherDto = AppWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        WeatherDto weatherDto = loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_weather);
-        views.setTextViewText(R.id.widget_city_tv, "БАЛДА");
-        views.setTextViewText(R.id.widget_max_tv, "БАЛДА");
-        views.setTextViewText(R.id.widget_min_tv, "БАЛДА");
-        views.setTextViewText(R.id.widget_type_weather_tv, "БАЛДА");
-        views.setTextViewText(R.id.widget_date_tv, "БАЛДА");
-        views.setImageViewResource(R.id.widget_weather_iv, R.drawable.ic_weather_clouds);
+        if (weatherDto != null) {
+            views.setTextViewText(R.id.widget_city_tv, "Trehgorniy");
+            views.setTextViewText(R.id.widget_min_max_tv, weatherDto.getTemperatureMin());
+            views.setTextViewText(R.id.widget_type_weather_tv, ViewHelper.getWeatherTextFromType(weatherDto.getWeatherType()));
+            views.setTextViewText(R.id.widget_date_tv, ViewHelper.getDateFromPattern(weatherDto.getDate()));
+            views.setImageViewResource(R.id.widget_weather_iv, ViewHelper.getWeatherImageFromType(weatherDto.getWeatherType()));
+        }
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.layout.widget_weather);
-
-//        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-//        setUpdateRv(views, context, appWidgetId);
-//        setList(views, context, appWidgetId);
-//
-//        appWidgetManager.updateAppWidget(appWidgetId, views);
-//        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
     }
-
-//    private static void setList(RemoteViews views, Context context, int appWidgetId) {
-//        Log.e("Widget", "setList");
-//        Intent intent = new Intent(context, MyService.class);
-//        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-//        views.setRemoteAdapter(R.id.widget_list, intent);
-//    }
-//
-//    private static void setUpdateRv(RemoteViews views, Context context, int appWidgetId) {
-//        Log.e("Widget", "setUpdateRv");
-//        Intent intent = new Intent(context, Widget.class);
-//        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{appWidgetId});
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, 0);
-//        views.setOnClickPendingIntent(R.id.widget_tv, pendingIntent);
-//    }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -64,7 +69,7 @@ public class AppWidget extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            AppWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+            deleteTitlePref(context, appWidgetId);
         }
     }
 

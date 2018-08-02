@@ -1,9 +1,10 @@
 package com.nenton.trehgornyinpocket.data.storage.dto;
 
-import java.io.Serializable;
+import com.nenton.trehgornyinpocket.data.storage.room.WeatherType;
+
 import java.util.Date;
 
-public class WeatherDto implements Serializable {
+public class WeatherDto {
     private String temperatureMax;
     private String temperatureMin;
     private Date date;
@@ -36,11 +37,5 @@ public class WeatherDto implements Serializable {
 
     public String getWindSpeed() {
         return windSpeed;
-    }
-
-    public enum WeatherType implements Serializable {
-        SUMMER, CLOUDS, PARTLY_CLOUDY,
-        HEAVY_RAIN, RAIN, RAIN_CLOUD,
-        SLEET, SNOW, STORM, WINDY
     }
 }

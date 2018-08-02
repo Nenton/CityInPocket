@@ -39,7 +39,6 @@
         <service
             android:name=".data.network.intentservices.WeatherIntentService"
             android:exported="false" />
-        <service android:name=".ui.widget.WidgetService" />
 
         <receiver android:name=".ui.widget.AppWidget">
             <intent-filter>
@@ -51,11 +50,6 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
-        <activity android:name=".ui.widget.AppWidgetConfigureActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
