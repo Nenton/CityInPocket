@@ -30,18 +30,25 @@
         <service
             android:name=".data.network.intentservices.NewsIntentService"
             android:exported="false" />
-
         <service
             android:name=".data.network.intentservices.AnnouncementsIntentService"
             android:exported="false" />
-
         <service
             android:name=".data.network.intentservices.OrganizationsIntentService"
             android:exported="false" />
-
         <service
-            android:name=".data.network.intentservices.WeatherIntentService"
+            android:name=".ui.widget.WeatherIntentService"
             android:exported="false" />
+
+        <receiver android:name=".ui.widget.AppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
 
     </application>
 

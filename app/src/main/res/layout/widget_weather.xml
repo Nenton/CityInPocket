@@ -1,88 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/widget_weather_iv"
         android:layout_width="@dimen/spacing_larger_72"
         android:layout_height="@dimen/spacing_larger_72"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginBottom="@dimen/spacing_small_8"
-        android:layout_marginLeft="@dimen/spacing_normal_16"
-        android:layout_marginStart="@dimen/spacing_normal_16"
+        android:layout_marginLeft="@dimen/spacing_small_8"
+        android:layout_marginStart="@dimen/spacing_small_8"
         android:layout_marginTop="@dimen/spacing_small_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/ic_weather_summer" />
 
-    <TextView
-        android:id="@+id/widget_city_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_normal_16"
-        android:layout_marginRight="@dimen/spacing_normal_16"
-        android:fontFamily="@string/roboto_thin"
-        android:text="@string/city_name"
-        android:textColor="@color/greyBlack"
-        android:textSize="@dimen/font_big_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/widget_weather_iv"
+        android:layout_toRightOf="@id/widget_weather_iv"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/widget_max_tv"
+        <TextView
+            android:id="@+id/widget_min_max_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small_8"
+            android:layout_marginStart="@dimen/spacing_small_8"
+            android:fontFamily="@string/roboto_medium"
+            android:textColor="@color/greyBlack"
+            android:textSize="@dimen/font_big_24"
+            android:textStyle="bold"
+            tools:text="15° - 30°" />
+
+        <TextView
+            android:id="@+id/widget_type_weather_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small_8"
+            android:layout_marginStart="@dimen/spacing_small_8"
+            android:layout_marginTop="@dimen/spacing_small_8"
+            android:fontFamily="@string/roboto_thin"
+            android:textColor="@color/greyBlack"
+            android:textSize="@dimen/font_big_24"
+            tools:text="Cloud" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_small_8"
-        android:layout_marginStart="@dimen/spacing_small_8"
-        android:fontFamily="@string/roboto_medium"
-        android:textColor="@color/greyBlack"
-        android:textSize="@dimen/font_big_24"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        tools:text="15° -" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/widget_min_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_small_8"
-        android:layout_marginStart="@dimen/spacing_small_8"
-        android:fontFamily="@string/roboto_regular"
-        android:textColor="@color/greyBlack"
-        android:textSize="@dimen/font_big_24"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/widget_max_tv"
-        app:layout_constraintTop_toTopOf="@+id/widget_max_tv"
-        tools:text="30°" />
+        <TextView
+            android:id="@+id/widget_city_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_normal_16"
+            android:fontFamily="@string/roboto_thin"
+            android:text="@string/city_name"
+            android:textColor="@color/greyBlack"
+            android:textSize="@dimen/font_big_24" />
 
-    <TextView
-        android:id="@+id/widget_type_weather_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_small_8"
-        android:layout_marginStart="@dimen/spacing_small_8"
-        android:fontFamily="@string/roboto_thin"
-        android:textColor="@color/greyBlack"
-        android:textSize="@dimen/font_big_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        tools:text="Cloud" />
 
-    <TextView
-        android:id="@+id/widget_date_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_normal_16"
-        android:layout_marginRight="@dimen/spacing_normal_16"
-        android:fontFamily="@string/roboto_regular"
-        android:textColor="@color/greyBlack"
-        android:textSize="@dimen/font_big_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="TUE JUN 10" />
+        <TextView
+            android:id="@+id/widget_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_normal_16"
+            android:layout_marginTop="@dimen/spacing_small_8"
+            android:fontFamily="@string/roboto_regular"
+            android:textColor="@color/greyBlack"
+            android:textSize="@dimen/font_big_24"
+            tools:text="TUE JUN 10" />
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
