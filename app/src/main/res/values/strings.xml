@@ -13,10 +13,7 @@
     <string name="action_weather">Weather</string>
     <string name="search">Search</string>
     <string name="degree">°</string>
-    <string name="city_name">Trehgorniy</string>
+    <string name="city_name">Tryokhgorny</string>
 
-
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
+    <string name="appwidget_text">Weather Tryokhgorny</string>
 </resources>

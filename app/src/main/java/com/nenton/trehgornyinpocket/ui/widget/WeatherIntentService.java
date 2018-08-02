@@ -23,5 +23,6 @@ public class WeatherIntentService extends IntentService {
         WeatherDto weatherDto = new WeatherDto(currentDayWeather);
         int widgetId = getSharedPreferences(PREFS_NAME, 0).getInt(PREF_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         AppWidget.saveTitlePref(this, widgetId, weatherDto);
+        AppWidget.updateAppWidget(this, AppWidgetManager.getInstance(this), widgetId);
     }
 }
