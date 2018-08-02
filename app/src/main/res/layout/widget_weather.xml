@@ -10,8 +10,8 @@
         android:layout_width="@dimen/spacing_larger_72"
         android:layout_height="@dimen/spacing_larger_72"
         android:layout_marginBottom="@dimen/spacing_small_8"
-        android:layout_marginLeft="@dimen/spacing_normal_16"
-        android:layout_marginStart="@dimen/spacing_normal_16"
+        android:layout_marginLeft="@dimen/spacing_small_8"
+        android:layout_marginStart="@dimen/spacing_small_8"
         android:layout_marginTop="@dimen/spacing_small_8"
         tools:srcCompat="@drawable/ic_weather_summer" />
 

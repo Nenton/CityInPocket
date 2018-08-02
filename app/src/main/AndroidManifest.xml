@@ -37,7 +37,7 @@
             android:name=".data.network.intentservices.OrganizationsIntentService"
             android:exported="false" />
         <service
-            android:name=".data.network.intentservices.WeatherIntentService"
+            android:name=".ui.widget.WeatherIntentService"
             android:exported="false" />
 
         <receiver android:name=".ui.widget.AppWidget">

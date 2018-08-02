@@ -11,10 +11,13 @@ import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
 
+import java.util.Date;
+
 public class AppWidget extends AppWidgetProvider {
 
-    private static final String PREFS_NAME = "com.nenton.trehgornyinpocket.ui.widget.AppWidget";
+    public static final String PREFS_NAME = "com.nenton.trehgornyinpocket.ui.widget.AppWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
+    public static final String PREF_WIDGET_ID = "PREF_WIDGET_ID";
 
     static void saveTitlePref(Context context, int appWidgetId, WeatherDto weatherDto) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
@@ -49,15 +52,20 @@ public class AppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_weather);
         if (weatherDto != null) {
             views.setTextViewText(R.id.widget_city_tv, "Trehgorniy");
-            views.setTextViewText(R.id.widget_min_max_tv, weatherDto.getTemperatureMin());
+            views.setTextViewText(R.id.widget_min_max_tv, weatherDto.getTemperatureMin() + " - " + weatherDto.getTemperatureMax());
             views.setTextViewText(R.id.widget_type_weather_tv, ViewHelper.getWeatherTextFromType(weatherDto.getWeatherType()));
-            views.setTextViewText(R.id.widget_date_tv, ViewHelper.getDateFromPattern(weatherDto.getDate()));
+            views.setTextViewText(R.id.widget_date_tv, ViewHelper.getDateFromPattern(new Date(weatherDto.getDate())));
             views.setImageViewResource(R.id.widget_weather_iv, ViewHelper.getWeatherImageFromType(weatherDto.getWeatherType()));
         }
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.layout.widget_weather);
+
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        prefs.putInt(PREF_WIDGET_ID, appWidgetId);
+        prefs.apply();
     }
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
