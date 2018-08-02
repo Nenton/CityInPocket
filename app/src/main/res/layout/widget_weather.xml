@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/widget_weather_iv"
         android:layout_width="@dimen/spacing_larger_72"
         android:layout_height="@dimen/spacing_larger_72"
         android:layout_marginBottom="@dimen/spacing_small_8"
@@ -29,7 +29,7 @@
         android:textColor="@color/greyBlack"
         android:textSize="@dimen/font_big_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/widget_weather_iv" />
 
     <TextView
         android:id="@+id/widget_max_tv"
@@ -41,8 +41,8 @@
         android:textColor="@color/greyBlack"
         android:textSize="@dimen/font_big_24"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/widget_weather_iv"
+        app:layout_constraintTop_toTopOf="@+id/widget_weather_iv"
         tools:text="15° -" />
 
     <TextView
@@ -68,8 +68,8 @@
         android:fontFamily="@string/roboto_thin"
         android:textColor="@color/greyBlack"
         android:textSize="@dimen/font_big_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/widget_weather_iv"
+        app:layout_constraintStart_toEndOf="@+id/widget_weather_iv"
         tools:text="Cloud" />
 
     <TextView
@@ -81,7 +81,7 @@
         android:fontFamily="@string/roboto_regular"
         android:textColor="@color/greyBlack"
         android:textSize="@dimen/font_big_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/widget_weather_iv"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="TUE JUN 10" />
 

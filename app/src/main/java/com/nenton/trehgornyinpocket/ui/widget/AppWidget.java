@@ -6,8 +6,7 @@ import android.content.Context;
 import android.widget.RemoteViews;
 
 import com.nenton.trehgornyinpocket.R;
-
-import java.util.Set;
+import com.nenton.trehgornyinpocket.data.storage.dto.WeatherDto;
 
 /**
  * Implementation of App Widget functionality.
@@ -18,13 +17,18 @@ public class AppWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        Set<String> widgetText = AppWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        WeatherDto weatherDto = AppWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
-        views.setTextViewText(R.id.appwidget_text, "БАЛДА");
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_weather);
+        views.setTextViewText(R.id.widget_city_tv, "БАЛДА");
+        views.setTextViewText(R.id.widget_max_tv, "БАЛДА");
+        views.setTextViewText(R.id.widget_min_tv, "БАЛДА");
+        views.setTextViewText(R.id.widget_type_weather_tv, "БАЛДА");
+        views.setTextViewText(R.id.widget_date_tv, "БАЛДА");
+        views.setImageViewResource(R.id.widget_weather_iv, R.drawable.ic_weather_clouds);
 
-        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.layout.widget_weather);
 
 //        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 //        setUpdateRv(views, context, appWidgetId);
@@ -52,7 +56,6 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
@@ -60,7 +63,6 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
-        // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
             AppWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
         }
