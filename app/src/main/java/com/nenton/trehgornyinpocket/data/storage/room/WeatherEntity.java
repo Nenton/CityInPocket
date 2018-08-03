@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.nenton.trehgornyinpocket.data.network.res.ResponseWeather;
+
 import java.sql.Date;
 
 @Entity(tableName = "weather")
@@ -32,6 +34,15 @@ public class WeatherEntity {
         this.date = date;
         this.weatherType = weatherType;
         this.windSpeed = windSpeed;
+    }
+
+    @Ignore
+    public WeatherEntity(ResponseWeather.List list) {
+        this.temperatureMax = String.valueOf(list.getMain().getTempMax() - 273.15f);
+        this.temperatureMin = String.valueOf(list.getMain().getTempMin() - 273.15f);
+        this.date = new Date(list.getDt());
+//        this.weatherType = ViewHelper.getWeatherTypeFromNet(list.ge);
+        this.windSpeed = String.valueOf(list.getWind().getSpeed());
     }
 
     public int getId() {
