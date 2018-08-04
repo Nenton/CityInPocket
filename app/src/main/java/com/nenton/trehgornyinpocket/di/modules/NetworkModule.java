@@ -13,7 +13,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -53,7 +52,7 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(AppConfig.BASE_URL)
                 .addConverterFactory(createConverterFactory())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // add rx adapter
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
     }

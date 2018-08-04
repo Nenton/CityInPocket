@@ -1,7 +1,9 @@
 package com.nenton.trehgornyinpocket.utils;
 
 public interface AppConfig {
-    String BASE_URL = "https://skba1.mgbeta.ru/api/v1/";
+    String BASE_URL = "http://api.openweathermap.org/data/2.5/";
+    int ID_CITY = 830844;
+    //    http://api.openweathermap.org/data/2.5/forecast?id=830844&APPID=2b5bdaf6820931db0f1f2f40fa9458e6
     long MAX_CONNECTION_TIMEOUT = 5 * 1000L;
     long MAX_READ_TIMEOUT = 5 * 1000L;
     long MAX_WRITE_TIMEOUT = 5 * 1000L;

@@ -4,13 +4,13 @@ import com.nenton.trehgornyinpocket.data.storage.room.WeatherEntity;
 import com.nenton.trehgornyinpocket.data.storage.room.WeatherType;
 
 public class WeatherDto {
-    private String temperatureMax;
-    private String temperatureMin;
+    private float temperatureMax;
+    private float temperatureMin;
     private long date;
     private WeatherType weatherType;
-    private String windSpeed;
+    private float windSpeed;
 
-    public WeatherDto(String temperatureMax, String temperatureMin, long date, WeatherType weatherType, String windSpeed) {
+    public WeatherDto(float temperatureMax, float temperatureMin, long date, WeatherType weatherType, float windSpeed) {
         this.temperatureMax = temperatureMax;
         this.temperatureMin = temperatureMin;
         this.date = date;
@@ -26,11 +26,11 @@ public class WeatherDto {
         this.windSpeed = currentDayWeather.getWindSpeed();
     }
 
-    public String getTemperatureMax() {
+    public float getTemperatureMax() {
         return temperatureMax;
     }
 
-    public String getTemperatureMin() {
+    public float getTemperatureMin() {
         return temperatureMin;
     }
 
@@ -42,7 +42,7 @@ public class WeatherDto {
         return weatherType;
     }
 
-    public String getWindSpeed() {
+    public float getWindSpeed() {
         return windSpeed;
     }
 }

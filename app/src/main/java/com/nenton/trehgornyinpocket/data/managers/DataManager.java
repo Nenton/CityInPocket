@@ -43,4 +43,8 @@ public class DataManager {
         }
         component.inject(this);
     }
+
+    public RestService getRestService() {
+        return mRestService;
+    }
 }

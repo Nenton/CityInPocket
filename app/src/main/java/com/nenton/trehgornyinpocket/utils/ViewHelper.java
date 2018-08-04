@@ -17,6 +17,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.BROKEN_CLOUDS;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.CLEAR_SKY;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.FEW_CLOUDS;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.MIST;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.RAIN;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.SCATTERED_CLOUDS;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.SHOWER_RAIN;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.SNOW;
+import static com.nenton.trehgornyinpocket.data.storage.room.WeatherType.THUNDERSTORM;
+
 /**
  * Created by serge on 25.03.2017.
  */
@@ -72,26 +82,24 @@ public class ViewHelper {
 
     public static String getWeatherTextFromType(WeatherType weatherType) {
         switch (weatherType) {
-            case SUMMER:
-                return "Clear";
+            case MIST:
+                return "Mist";
+            case CLEAR_SKY:
+                return "Clear sky";
+            case FEW_CLOUDS:
+                return "Few clouds";
+            case SHOWER_RAIN:
+                return "Shower rain";
+            case THUNDERSTORM:
+                return "Thunderstorm";
+            case BROKEN_CLOUDS:
+                return "Broken clouds";
+            case SCATTERED_CLOUDS:
+                return "Scattered clouds";
             case RAIN:
                 return "Rain";
             case SNOW:
                 return "Snow";
-            case SLEET:
-                return "Sleet";
-            case STORM:
-                return "Storm";
-            case WINDY:
-                return "Windy";
-            case CLOUDS:
-                return "Cloud";
-            case HEAVY_RAIN:
-                return "Heavy rain";
-            case RAIN_CLOUD:
-                return "Rain cloud";
-            case PARTLY_CLOUDY:
-                return "Partly cloudy";
             default:
                 return "Partly cloudy";
         }
@@ -99,28 +107,51 @@ public class ViewHelper {
 
     public static int getWeatherImageFromType(WeatherType weatherType) {
         switch (weatherType) {
-            case SUMMER:
-                return R.drawable.ic_weather_summer;
+            case MIST:
+                return R.drawable.ic_mist;
+            case CLEAR_SKY:
+                return R.drawable.ic_clear_sky;
+            case FEW_CLOUDS:
+                return R.drawable.ic_few_clouds;
+            case SHOWER_RAIN:
+                return R.drawable.ic_shower_rain;
+            case THUNDERSTORM:
+                return R.drawable.ic_thunderstorm;
+            case BROKEN_CLOUDS:
+                return R.drawable.ic_broken_clouds;
+            case SCATTERED_CLOUDS:
+                return R.drawable.ic_scattered_clouds;
             case RAIN:
-                return R.drawable.ic_weather_rain;
+                return R.drawable.ic_rain;
             case SNOW:
-                return R.drawable.ic_weather_snow;
-            case SLEET:
-                return R.drawable.ic_weather_sleet;
-            case STORM:
-                return R.drawable.ic_weather_storm;
-            case WINDY:
-                return R.drawable.ic_weather_windy_weather;
-            case CLOUDS:
-                return R.drawable.ic_weather_clouds;
-            case HEAVY_RAIN:
-                return R.drawable.ic_weather_heavy_rain;
-            case RAIN_CLOUD:
-                return R.drawable.ic_weather_rain_cloud;
-            case PARTLY_CLOUDY:
-                return R.drawable.ic_weather_partly_cloudy_day;
+                return R.drawable.ic_snow;
             default:
-                return R.drawable.ic_weather_partly_cloudy_day;
+                return R.drawable.ic_few_clouds;
+        }
+    }
+
+    public static WeatherType getWeatherTypeFromNet(String main) {
+        switch (main.toLowerCase()) {
+            case "mist":
+                return MIST;
+            case "clear sky":
+                return CLEAR_SKY;
+            case "few clouds":
+                return FEW_CLOUDS;
+            case "shower rain":
+                return SHOWER_RAIN;
+            case "thunderstorm":
+                return THUNDERSTORM;
+            case "broken clouds":
+                return BROKEN_CLOUDS;
+            case "scattered clouds":
+                return SCATTERED_CLOUDS;
+            case "rain":
+                return RAIN;
+            case "snow":
+                return SNOW;
+            default:
+                return FEW_CLOUDS;
         }
     }
 
