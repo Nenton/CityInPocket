@@ -66,8 +66,6 @@ public class CurNewsView extends AbstractView<CurNewsScreen.CurNewsPresenter> {
             for (String urlPhotos : currentNews.getImagesUrl()) {
                 adapter.addUrl(urlPhotos);
             }
-            adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/812271/1934c8a2-a8f3-4b18-8ed5-7683e9842bfb/s1200");
-            adapter.addUrl("https://avatars.mds.yandex.net/get-pdb/70729/6b068f73-2c77-4d10-927e-9fd5b2ee2302/s1200");
         }
     }
 

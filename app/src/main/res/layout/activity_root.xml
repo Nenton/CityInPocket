@@ -50,6 +50,47 @@
                 android:indeterminate="true" />
         </FrameLayout>
 
+        <FrameLayout
+            android:id="@+id/wrap_error_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/error_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/roboto_regular"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/spacing_normal_16"
+                    android:paddingLeft="@dimen/spacing_normal_16"
+                    android:paddingRight="@dimen/spacing_normal_16"
+                    android:paddingStart="@dimen/spacing_normal_16"
+                    android:textAlignment="center"
+                    android:textColor="@color/greyBlack"
+                    android:textSize="@dimen/font_big_24"
+                    android:textStyle="normal"
+                    tools:text="Network not available try later" />
+
+                <Button
+                    android:id="@+id/error_button"
+                    style="@style/Base.TextAppearance.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/ok" />
+            </LinearLayout>
+
+        </FrameLayout>
+
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

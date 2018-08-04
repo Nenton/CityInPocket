@@ -1,9 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.news;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -135,16 +133,25 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         }
 
         private void updateData(LiveData<List<NewsEntity>> observable) {
+            checkNet();
             if (getRootView() != null && getView() != null) {
                 observable.observe(((RootActivity) getRootView()),
-                        new Observer<List<NewsEntity>>() {
-                            @Override
-                            public void onChanged(@Nullable List<NewsEntity> newsEntities) {
-//                                observable.removeObserver(this);
+                        newsEntities -> {
+                            if (getView() != null) {
                                 getView().getAdapter().reloadAdapter(newsEntities);
                             }
+                            getRootView().hideLoad();
+                            if (newsEntities != null && !newsEntities.isEmpty()) {
+                                getRootView().hideError();
+                            }
                         });
+                mListLiveData.add(observable);
             }
+        }
+
+        @Override
+        protected void onExitScope() {
+            super.onExitScope();
         }
 
         private void showNews(final String q, int delay) {

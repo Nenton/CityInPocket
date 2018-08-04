@@ -1,9 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.weather;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.nenton.trehgornyinpocket.R;
 import com.nenton.trehgornyinpocket.data.storage.room.WeatherEntity;
@@ -84,15 +82,19 @@ public class WeatherScreen extends AbstractScreen<RootActivity.RootComponent> {
         }
 
         private void updateData(LiveData<List<WeatherEntity>> observable) {
+            checkNet();
             if (getRootView() != null && getView() != null) {
                 observable.observe(((RootActivity) getRootView()),
-                        new Observer<List<WeatherEntity>>() {
-                            @Override
-                            public void onChanged(@Nullable List<WeatherEntity> newsEntities) {
-                                observable.removeObserver(this);
-                                getView().getAdapter().reloadAdapter(newsEntities);
+                        weatherEntities -> {
+                            if (getView() != null) {
+                                getView().getAdapter().reloadAdapter(weatherEntities);
+                            }
+                            getRootView().hideLoad();
+                            if (weatherEntities != null && !weatherEntities.isEmpty()) {
+                                getRootView().hideError();
                             }
                         });
+                mListLiveData.add(observable);
             }
         }
 

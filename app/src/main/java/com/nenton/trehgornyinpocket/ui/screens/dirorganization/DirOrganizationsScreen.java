@@ -1,9 +1,7 @@
 package com.nenton.trehgornyinpocket.ui.screens.dirorganization;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
@@ -130,15 +128,19 @@ public class DirOrganizationsScreen extends AbstractScreen<RootActivity.RootComp
         }
 
         private void updateData(LiveData<List<OrganizationEntity>> observable) {
+            checkNet();
             if (getRootView() != null && getView() != null) {
                 observable.observe(((RootActivity) getRootView()),
-                        new Observer<List<OrganizationEntity>>() {
-                            @Override
-                            public void onChanged(@Nullable List<OrganizationEntity> newsEntities) {
-                                observable.removeObserver(this);
-                                getView().getAdapter().reloadAdapter(newsEntities);
+                        organizationsEntities -> {
+                            if (getView() != null) {
+                                getView().getAdapter().reloadAdapter(organizationsEntities);
+                            }
+                            getRootView().hideLoad();
+                            if (organizationsEntities != null && !organizationsEntities.isEmpty()) {
+                                getRootView().hideError();
                             }
                         });
+                mListLiveData.add(observable);
             }
         }
 

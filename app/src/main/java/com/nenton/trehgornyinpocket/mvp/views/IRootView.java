@@ -11,6 +11,10 @@ public interface IRootView extends IView{
     void showLoad();
     void hideLoad();
 
+    void showError(String message);
+
+    void hideError();
+
     @Nullable
     IView getCurrentScreen();
 

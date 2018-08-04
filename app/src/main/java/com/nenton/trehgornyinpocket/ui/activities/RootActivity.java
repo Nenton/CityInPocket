@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -61,6 +62,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import flow.Flow;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
@@ -85,6 +87,10 @@ public class RootActivity extends AppCompatActivity implements IRootView,
     NavigationView mNavigationView;
     @BindView(R.id.wrap_container_pb)
     FrameLayout mWrapProgressbar;
+    @BindView(R.id.wrap_error_fl)
+    FrameLayout mWrapError;
+    @BindView(R.id.error_message)
+    TextView mErrorMessage;
 
     private ActionBarDrawerToggle mToggle;
     private ActionBar mActionBar;
@@ -97,6 +103,12 @@ public class RootActivity extends AppCompatActivity implements IRootView,
         mWrapProgressbar.setVisibility(View.GONE);
         showMessage("Превышен лимит ожидания. Попробуйте позже");
     };
+
+    @OnClick(R.id.error_button)
+    public void clickOnErrorButton() {
+        hideError();
+        hideLoad();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +194,22 @@ public class RootActivity extends AppCompatActivity implements IRootView,
         if (mWrapProgressbar != null) {
             mWrapProgressbar.setVisibility(View.GONE);
             mWrapProgressbar.removeCallbacks(runnable);
+        }
+    }
+
+    @Override
+    public void showError(String string) {
+        if (mWrapError != null) {
+            mWrapError.setVisibility(View.VISIBLE);
+            mErrorMessage.setText(string);
+        }
+
+    }
+
+    @Override
+    public void hideError() {
+        if (mWrapError != null) {
+            mWrapError.setVisibility(View.GONE);
         }
     }
 

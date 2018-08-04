@@ -113,18 +113,18 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
             super.onLoad(savedInstanceState);
             if (getView() != null) {
                 getView().initView(currentNews);
-            }
-            if (currentNews.getVideoUrl() != null && !currentNews.getVideoUrl().isEmpty()) {
-                initPlayer();
-                loadMediaSource();
-                getView().chainPlayer(mExoPlayer);
+                if (currentNews.getVideoUrl() != null && !currentNews.getVideoUrl().isEmpty()) {
+                    initPlayer();
+                    loadMediaSource();
+                    getView().chainPlayer(mExoPlayer);
 
-                if (savedInstanceState != null) {
-                    mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_PLAYER_KEY));
-                    mExoPlayer.setPlayWhenReady(savedInstanceState.getBoolean(PLAY_KEY));
+                    if (savedInstanceState != null) {
+                        mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_PLAYER_KEY));
+                        mExoPlayer.setPlayWhenReady(savedInstanceState.getBoolean(PLAY_KEY));
+                    }
+                } else {
+                    getView().hidePlayer();
                 }
-            } else {
-                getView().hidePlayer();
             }
         }
 
@@ -172,10 +172,12 @@ public class CurNewsScreen extends AbstractScreen<RootActivity.RootComponent> {
         }
 
         private void loadMediaSource() {
-            String cityInPocket = Util.getUserAgent(getView().getContext(), "cityInPocket");
-            DefaultDataSourceFactory factory = new DefaultDataSourceFactory(getView().getContext(), cityInPocket, new DefaultBandwidthMeter());
-            MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(Uri.parse(currentNews.getVideoUrl()));
-            mExoPlayer.prepare(mediaSource);
+            if (getView() != null) {
+                String cityInPocket = Util.getUserAgent(getView().getContext(), "cityInPocket");
+                DefaultDataSourceFactory factory = new DefaultDataSourceFactory(getView().getContext(), cityInPocket, new DefaultBandwidthMeter());
+                MediaSource mediaSource = new ExtractorMediaSource.Factory(factory).createMediaSource(Uri.parse(currentNews.getVideoUrl()));
+                mExoPlayer.prepare(mediaSource);
+            }
         }
 
         private class MySessionCallback extends MediaSessionCompat.Callback {
