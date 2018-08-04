@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseWeather {
+    @SerializedName("city")
+    @Expose
+    private City city;
     @SerializedName("cod")
     @Expose
     private String cod;
@@ -16,9 +19,10 @@ public class ResponseWeather {
     @SerializedName("list")
     @Expose
     private java.util.List<List> list = null;
-    @SerializedName("city")
-    @Expose
-    private City city;
+
+    public City getCity() {
+        return city;
+    }
 
     public String getCod() {
         return cod;
@@ -36,99 +40,6 @@ public class ResponseWeather {
         return list;
     }
 
-    public City getCity() {
-        return city;
-    }
-
-    public class List {
-
-        @SerializedName("dt")
-        @Expose
-        private int dt;
-        @SerializedName("main")
-        @Expose
-        private Main main;
-        @SerializedName("weather")
-        @Expose
-        private java.util.List<Weather> weather = null;
-        @SerializedName("clouds")
-        @Expose
-        private Clouds clouds;
-        @SerializedName("wind")
-        @Expose
-        private Wind wind;
-        @SerializedName("rain")
-        @Expose
-        private Rain rain;
-        @SerializedName("sys")
-        @Expose
-        private Sys sys;
-        @SerializedName("dt_txt")
-        @Expose
-        private String dtTxt;
-
-        public int getDt() {
-            return dt;
-        }
-
-        public Main getMain() {
-            return main;
-        }
-
-        public java.util.List<Weather> getWeather() {
-            return weather;
-        }
-
-        public Clouds getClouds() {
-            return clouds;
-        }
-
-        public Wind getWind() {
-            return wind;
-        }
-
-        public Rain getRain() {
-            return rain;
-        }
-
-        public Sys getSys() {
-            return sys;
-        }
-
-        public String getDtTxt() {
-            return dtTxt;
-        }
-    }
-
-    public class Coord {
-
-        @SerializedName("lat")
-        @Expose
-        private float lat;
-        @SerializedName("lon")
-        @Expose
-        private float lon;
-
-        public float getLat() {
-            return lat;
-        }
-
-        public float getLon() {
-            return lon;
-        }
-    }
-
-    public class Clouds {
-
-        @SerializedName("all")
-        @Expose
-        private int all;
-
-        public int getAll() {
-            return all;
-        }
-    }
-
     public class City {
 
         @SerializedName("id")
@@ -143,6 +54,9 @@ public class ResponseWeather {
         @SerializedName("country")
         @Expose
         private String country;
+        @SerializedName("population")
+        @Expose
+        private int population;
 
         public int getId() {
             return id;
@@ -159,87 +73,139 @@ public class ResponseWeather {
         public String getCountry() {
             return country;
         }
+
+        public int getPopulation() {
+            return population;
+        }
     }
 
-    public class Main {
+    public class Coord {
+        @SerializedName("lon")
+        @Expose
+        private float lon;
+        @SerializedName("lat")
+        @Expose
+        private float lat;
 
+        public float getLon() {
+            return lon;
+        }
+
+        public float getLat() {
+            return lat;
+        }
+    }
+
+    public class List {
+
+        @SerializedName("dt")
+        @Expose
+        private int dt;
         @SerializedName("temp")
         @Expose
-        private float temp;
-        @SerializedName("temp_min")
-        @Expose
-        private float tempMin;
-        @SerializedName("temp_max")
-        @Expose
-        private float tempMax;
+        private Temp temp;
         @SerializedName("pressure")
         @Expose
         private float pressure;
-        @SerializedName("sea_level")
-        @Expose
-        private float seaLevel;
-        @SerializedName("grnd_level")
-        @Expose
-        private float grndLevel;
         @SerializedName("humidity")
         @Expose
         private int humidity;
-        @SerializedName("temp_kf")
+        @SerializedName("weather")
         @Expose
-        private int tempKf;
+        private java.util.List<Weather> weather = null;
+        @SerializedName("speed")
+        @Expose
+        private float speed;
+        @SerializedName("deg")
+        @Expose
+        private int deg;
+        @SerializedName("clouds")
+        @Expose
+        private int clouds;
+        @SerializedName("rain")
+        @Expose
+        private float rain;
 
-        public float getTemp() {
+        public float getRain() {
+            return rain;
+        }
+
+        public int getDt() {
+            return dt;
+        }
+
+        public Temp getTemp() {
             return temp;
-        }
-
-        public float getTempMin() {
-            return tempMin;
-        }
-
-        public float getTempMax() {
-            return tempMax;
         }
 
         public float getPressure() {
             return pressure;
         }
 
-        public float getSeaLevel() {
-            return seaLevel;
-        }
-
-        public float getGrndLevel() {
-            return grndLevel;
-        }
-
         public int getHumidity() {
             return humidity;
         }
 
-        public int getTempKf() {
-            return tempKf;
+        public java.util.List<Weather> getWeather() {
+            return weather;
+        }
+
+        public float getSpeed() {
+            return speed;
+        }
+
+        public int getDeg() {
+            return deg;
+        }
+
+        public int getClouds() {
+            return clouds;
         }
     }
 
-    public class Rain {
+    public class Temp {
 
-        @SerializedName("3h")
+        @SerializedName("day")
         @Expose
-        private float _3h;
+        private float day;
+        @SerializedName("min")
+        @Expose
+        private float min;
+        @SerializedName("max")
+        @Expose
+        private float max;
+        @SerializedName("night")
+        @Expose
+        private float night;
+        @SerializedName("eve")
+        @Expose
+        private float eve;
+        @SerializedName("morn")
+        @Expose
+        private float morn;
 
-        public float get_3h() {
-            return _3h;
+        public float getDay() {
+            return day;
         }
-    }
 
-    public class Sys {
+        public float getMin() {
+            return min;
+        }
 
-        @SerializedName("pod")
-        @Expose
-        private String pod;
+        public float getMax() {
+            return max;
+        }
 
-        public String getPod() {
-            return pod;
+        public float getNight() {
+            return night;
+        }
+
+        public float getEve() {
+            return eve;
+        }
+
+        public float getMorn() {
+            return morn;
         }
     }
 
@@ -272,24 +238,6 @@ public class ResponseWeather {
 
         public String getIcon() {
             return icon;
-        }
-    }
-
-    public class Wind {
-
-        @SerializedName("speed")
-        @Expose
-        private float speed;
-        @SerializedName("deg")
-        @Expose
-        private float deg;
-
-        public float getSpeed() {
-            return speed;
-        }
-
-        public float getDeg() {
-            return deg;
         }
     }
 }

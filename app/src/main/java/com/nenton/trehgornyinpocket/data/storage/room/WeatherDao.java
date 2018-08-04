@@ -31,6 +31,6 @@ public interface WeatherDao {
     @Query("delete from weather")
     void deleteAll();
 
-    @Query("Select * from weather order by date asc limit 1")
-    WeatherEntity getCurrentDayWeather();
+    @Query("Select * from weather where dateText = :dateText order by date asc limit 1")
+    WeatherEntity getCurrentDayWeather(String dateText);
 }

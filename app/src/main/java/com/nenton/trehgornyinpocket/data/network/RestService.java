@@ -8,6 +8,6 @@ import retrofit2.http.Query;
 
 public interface RestService {
 
-    @GET("forecast")
-    Call<ResponseWeather> getWeather(@Query("id") int id, @Query("APPID") String apiKey);
+    @GET("forecast/daily")
+    Call<ResponseWeather> getWeather(@Query("id") int id, @Query("APPID") String apiKey, @Query("cnt") int cnt);
 }

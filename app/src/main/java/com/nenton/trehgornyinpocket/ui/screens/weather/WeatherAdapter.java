@@ -15,6 +15,8 @@ import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.utils.ViewHelper;
 import com.squareup.picasso.Picasso;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +61,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         SimpleDateFormat format = new SimpleDateFormat("dd MMMM", Locale.ENGLISH);
         holder.dayText.setText(format.format(weather.getDate()));
         String degree = context.getResources().getString(R.string.degree);
-        holder.maxTempText.setText(weather.getTemperatureMax().concat(degree));
-        holder.minTempText.setText(weather.getTemperatureMin().concat(degree));
+        DecimalFormat df = new DecimalFormat("#");
+        df.setRoundingMode(RoundingMode.CEILING);
+        holder.maxTempText.setText(df.format(weather.getTemperatureMax()).concat(degree));
+        holder.minTempText.setText(df.format(weather.getTemperatureMin()).concat(degree));
 
         holder.typeText.setText(ViewHelper.getWeatherTextFromType(weather.getWeatherType()));
 

@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.stetho.Stetho;
+import com.nenton.trehgornyinpocket.data.managers.AppDatabase;
 import com.nenton.trehgornyinpocket.di.DaggerService;
 import com.nenton.trehgornyinpocket.di.components.AppComponent;
 import com.nenton.trehgornyinpocket.di.components.DaggerAppComponent;
@@ -49,7 +50,7 @@ public class App extends Application {
         super.onCreate();
 
         sContext = getApplicationContext();
-
+        AppDatabase.getInstance(sContext);
         sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         createAppComponent();
         createRootActivityComponent();
