@@ -2,8 +2,6 @@ package com.nenton.trehgornyinpocket.utils;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.stetho.Stetho;
@@ -24,12 +22,10 @@ import mortar.bundler.BundleServiceRunner;
 
 public class App extends Application {
 
-    private SharedPreferences sSharedPreferences;
     private static Context sContext;
     private static AppComponent sAppComponent;
     private RootActivity.RootComponent mRootActivityRootComponent;
     private MortarScope mMortarScope;
-    private MortarScope mRootActivityScope;
 
     public static AppComponent getAppComponent() {
         return sAppComponent;
@@ -51,7 +47,6 @@ public class App extends Application {
 
         sContext = getApplicationContext();
         AppDatabase.getInstance(sContext);
-        sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         createAppComponent();
         createRootActivityComponent();
 
@@ -64,7 +59,7 @@ public class App extends Application {
                 .withService(DaggerService.SERVICE_NAME, sAppComponent)
                 .build("Root");
 
-        mRootActivityScope = mMortarScope.buildChild()
+        MortarScope mRootActivityScope = mMortarScope.buildChild()
                 .withService(DaggerService.SERVICE_NAME, mRootActivityRootComponent)
                 .withService(BundleServiceRunner.SERVICE_NAME, new BundleServiceRunner())
                 .build(RootActivity.class.getName());

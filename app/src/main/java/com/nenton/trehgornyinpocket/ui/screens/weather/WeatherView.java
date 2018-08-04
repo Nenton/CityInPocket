@@ -41,9 +41,7 @@ public class WeatherView extends AbstractView<WeatherScreen.WeatherPresenter> {
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             mPresenter.swipeUpdate();
-            swipeRefreshLayout.postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }, 1500);
+            swipeRefreshLayout.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 1500);
         });
     }
 

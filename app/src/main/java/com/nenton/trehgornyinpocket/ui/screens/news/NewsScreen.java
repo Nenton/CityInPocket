@@ -149,11 +149,6 @@ public class NewsScreen extends AbstractScreen<RootActivity.RootComponent> {
             }
         }
 
-        @Override
-        protected void onExitScope() {
-            super.onExitScope();
-        }
-
         private void showNews(final String q, int delay) {
             Runnable newRunnable = () -> {
                 query = "%" + q + "%";

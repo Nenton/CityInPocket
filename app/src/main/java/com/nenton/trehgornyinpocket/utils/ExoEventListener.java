@@ -22,36 +22,37 @@ public class ExoEventListener extends Player.DefaultEventListener {
 
     @Override
     public void onPlayerError(ExoPlaybackException error) {
+        // Do nothing
     }
 
     @Override
     public void onPositionDiscontinuity(int reason) {
-
+        // Do nothing
     }
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
+        // Do nothing
     }
 
     @Override
     public void onSeekProcessed() {
-
+        // Do nothing
     }
 
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
-
+        // Do nothing
     }
 
     @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
+        // Do nothing
     }
 
     @Override
     public void onLoadingChanged(boolean isLoading) {
-
+        // Do nothing
     }
 
     @Override
@@ -66,11 +67,11 @@ public class ExoEventListener extends Player.DefaultEventListener {
 
     @Override
     public void onRepeatModeChanged(int repeatMode) {
-
+        // Do nothing
     }
 
     @Override
     public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-
+        // Do nothing
     }
 }

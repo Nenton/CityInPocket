@@ -42,9 +42,7 @@ public class NewsView extends AbstractView<NewsScreen.NewsPresenter> {
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             mPresenter.swipeUpdate();
-            swipeRefreshLayout.postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }, 1500);
+            swipeRefreshLayout.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 1500);
         });
     }
 

@@ -352,12 +352,6 @@ public class RootActivity extends AppCompatActivity implements IRootView,
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mRootPresenter.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Object key = null;
         switch (item.getItemId()) {

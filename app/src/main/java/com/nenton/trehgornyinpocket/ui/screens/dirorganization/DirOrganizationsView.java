@@ -42,9 +42,7 @@ public class DirOrganizationsView extends AbstractView<DirOrganizationsScreen.Di
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             mPresenter.swipeUpdate();
-            swipeRefreshLayout.postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }, 1500);
+            swipeRefreshLayout.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 1500);
         });
     }
 

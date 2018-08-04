@@ -57,8 +57,6 @@ public class AnnouncementsIntentService extends IntentService {
     }
 
     private void insertAnnouncement(List<AnnouncementEntity> list) {
-        new Thread(() -> {
-            AppDatabase.getInstance(AnnouncementsIntentService.this).announcementsDao().insertAnnouncement(list);
-        }).start();
+        new Thread(() -> AppDatabase.getInstance(AnnouncementsIntentService.this).announcementsDao().insertAnnouncement(list)).start();
     }
 }

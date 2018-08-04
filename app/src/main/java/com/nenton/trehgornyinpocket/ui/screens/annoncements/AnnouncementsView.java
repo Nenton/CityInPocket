@@ -43,9 +43,7 @@ public class AnnouncementsView extends AbstractView<AnnouncementsScreen.Announce
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             mPresenter.swipeUpdate();
-            swipeRefreshLayout.postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }, 1500);
+            swipeRefreshLayout.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 1500);
         });
     }
 

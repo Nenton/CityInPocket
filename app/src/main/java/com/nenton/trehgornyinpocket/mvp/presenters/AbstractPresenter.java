@@ -2,7 +2,6 @@ package com.nenton.trehgornyinpocket.mvp.presenters;
 
 import android.arch.lifecycle.LiveData;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.nenton.trehgornyinpocket.mvp.models.AbstractModel;
 import com.nenton.trehgornyinpocket.mvp.views.AbstractView;
@@ -17,24 +16,14 @@ import javax.inject.Inject;
 
 import mortar.MortarScope;
 import mortar.ViewPresenter;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 public abstract class AbstractPresenter<V extends AbstractView, M extends AbstractModel> extends ViewPresenter<V> {
-
-    private final String tag = this.getClass().getSimpleName();
-
     @Inject
     protected M mModel;
 
     @Inject
     protected RootPresenter mRootPresenter;
 
-    protected CompositeSubscription mCompSubs;
     protected List<LiveData> mListLiveData = new ArrayList<>();
 
     @Override
@@ -47,7 +36,6 @@ public abstract class AbstractPresenter<V extends AbstractView, M extends Abstra
     @Override
     protected void onLoad(Bundle savedInstanceState) {
         super.onLoad(savedInstanceState);
-        mCompSubs = new CompositeSubscription();
         initActionBar();
     }
 
@@ -59,9 +47,6 @@ public abstract class AbstractPresenter<V extends AbstractView, M extends Abstra
 
     @Override
     public void dropView(V view) {
-        if (mCompSubs.hasSubscriptions()) {
-            mCompSubs.unsubscribe();
-        }
         if (!mListLiveData.isEmpty()) {
             for (LiveData liveData : mListLiveData) {
                 liveData.removeObservers(((RootActivity) getRootView()));
@@ -77,26 +62,5 @@ public abstract class AbstractPresenter<V extends AbstractView, M extends Abstra
 
     protected IRootView getRootView() {
         return mRootPresenter.getRootView();
-    }
-
-    protected <T> Subscription subscribe(Observable<T> observable, ViewSubscriber<T> subscriber) {
-        return observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
-
-    protected abstract class ViewSubscriber<T> extends Subscriber<T> {
-        @Override
-        public void onCompleted() {
-            Log.d(tag, "onCompleter observable");
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            if (getRootView() != null) {
-                getRootView().showError(e);
-            }
-        }
     }
 }
