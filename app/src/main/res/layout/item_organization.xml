@@ -44,6 +44,7 @@
         android:layout_marginTop="@dimen/spacing_small_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/news_picture"
         tools:src="@drawable/ic_photo" />
 
 

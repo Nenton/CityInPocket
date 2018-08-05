@@ -29,6 +29,7 @@
                 android:src="@drawable/ic_calendar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/calendar_image"
                 tools:targetApi="lollipop" />
 
             <TextView

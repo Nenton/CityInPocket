@@ -17,4 +17,16 @@
 
     <string name="appwidget_text">Weather Tryokhgorny</string>
     <string name="ok">Ok</string>
+    <string name="calendar_image">Calendar image</string>
+    <string name="news_picture">News picture</string>
+    <string name="organization_label">Organization label</string>
+    <string name="header_picture_of_navigation_bar">Header picture of navigation bar</string>
+    <string name="account_image">Account image</string>
+    <string name="item_weather_image">Item weather image</string>
+    <string name="item_announcement_picture">Item announcement picture</string>
+    <string name="clock_icon">Clock icon</string>
+    <string name="icon_current_contact">Icon current contact</string>
+    <string name="item_news_picture">Item news picture</string>
+    <string name="icon_current_weather">Icon current weather</string>
+    <string name="item_picture">Item picture</string>
 </resources>
