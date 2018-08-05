@@ -18,6 +18,7 @@
             android:layout_marginStart="@dimen/spacing_normal_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/organization_label"
             tools:background="@color/greyWhite" />
 
         <TextView

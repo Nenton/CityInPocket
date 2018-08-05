@@ -33,6 +33,7 @@
         android:layout_marginTop="@dimen/spacing_small_8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/item_announcement_picture"
         tools:background="@color/colorAccent" />
 
     <ImageView
@@ -41,10 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_small_8"
         android:layout_marginStart="@dimen/spacing_small_8"
-        android:src="@drawable/ic_time"
+        android:contentDescription="@string/clock_icon"
         app:layout_constraintBottom_toTopOf="@+id/announcement_date_tv"
         app:layout_constraintStart_toEndOf="@+id/announcement_date_tv"
-        app:layout_constraintTop_toBottomOf="@+id/announcement_date_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/announcement_date_tv"
+        app:srcCompat="@drawable/ic_time" />
 
     <TextView
         android:id="@+id/announcement_date_tv"
