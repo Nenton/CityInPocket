@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'CityInPocket'
             keyPassword 'CityInPocket'
-            storeFile file('D:/capstone.jks')
+            storeFile file('./capstone.jks')
             storePassword 'capstone'
         }
     }
